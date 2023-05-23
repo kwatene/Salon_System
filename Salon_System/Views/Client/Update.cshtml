@@ -1,0 +1,162 @@
+﻿@model Salon_System.Models.Client
+
+@{
+    ViewData["Title"] = "Edit Client";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successMessage"]?.ToString();
+}
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>Error! </strong>@errorMessage
+        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}else @if(!string.IsNullOrWhiteSpace(successMessage))
+{
+    <div class="alert alert-success">
+        <strong>Error! </strong>@successMessage
+        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Title-->
+<div class="container col-sm-10 pt-3">
+    <div class="card card-white pt-3">
+        <h2 class="text-center">@ViewData["Title"]</h2>
+    </div>
+</div>
+
+<!-- Client Details Form-->
+<section class="content">
+    <div class="container-fluid col-sm-10">
+        <div class="card card-primary card-outline">
+            <div class="card-header pt-1">
+                <h3 class="card-title">Client Details</h3>
+            </div>
+
+            <div class="card-body">
+            <!-- form start -->
+            <form action="" method="post" autocomplete="off">
+                <div class="card-body">
+                    <div class="row pt-1">
+                        <div class="col-sm-3">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" asp-for="FirstName" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Last name</label>
+                                <input type="text" class="form-control" asp-for="LastName" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- select input -->
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <select class="form-control" asp-for="Gender">
+                                    <option>Select</option>
+                                    <option>Female</option>
+                                    <option>Male</option>
+                                    <option>Rather not say</option>
+                                    <span asp-validation-for="Gender" class="text-danger"></span>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Date Of Birth</label>
+                                <input type="date" class="form-control" asp-for="DateOfBirth" placeholder="DD/MM/YYYY">
+                                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" asp-for="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Mobile Phone</label>
+                                <input type="text" class="form-control" asp-for="Phone" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Address</label><br />
+                                <a>Street Name and Number</a>
+                                <input type="text" class="form-control" asp-for="Address" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <a>Suburb</a>
+                                <input type="text" class="form-control" asp-for="Suburb" />
+                                <span asp-validation-for="Suburb" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <a>City</a>
+                                <input type="text" class="form-control" asp-for="City" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <a>Country</a>
+                                <input type="text" class="form-control" asp-for="Country" />
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <a>Postcode</a>
+                                <input type="text" class="form-control" asp-for="PostCode" />
+                                <span asp-validation-for="PostCode" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-secondary float-right">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

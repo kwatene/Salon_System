@@ -1,0 +1,95 @@
+﻿@model List<Salon_System.Models.Service>
+
+@{
+    ViewData["Title"] = "Services";
+    var successMessage = TempData["successMessage"]?.ToString();
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+@if (!string.IsNullOrWhiteSpace(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+else if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container pt-3">
+    <div class="card card-primary card-outline">
+        <form>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="text-right">@ViewData["Title"]</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <button asp-action="Create" asp-controller="Service" class="btn btn-primary float-right" style="color:white;">Add Service</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                            <th>Charge</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            @foreach (var service in Model)
+                            {
+                                <tr>
+                                    <td>@service.Id</td>
+                                    <td>@service.Name</td>
+                                    <td>@service.Description</td>
+                                    <td>@service.Duration?.ToString("HH:mm")</td>
+                                    <td>@service.Charge</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a asp-controller="Service" asp-action="Update" asp-route-id="@service.Id" class="btn btn-secondary">Edit</a>&nbsp&nbsp&nbsp
+                                            <a asp-controller="Service" asp-action="Delete" asp-route-id="@service.Id" class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7">
+                                    <div>
+                                        No Services
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="container card-tools pt-5">
+                    <ul class="pagination pagination-sm float-right">
+                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+        <!-- /.card-body -->
+    </div>
+</div>

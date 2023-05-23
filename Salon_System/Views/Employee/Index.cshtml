@@ -1,0 +1,92 @@
+﻿@model List<Salon_System.Models.Employee>
+
+@{
+    ViewData["Title"] = "Employee List";
+    var successMessage = TempData["successMessage"]?.ToString();
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+@if (!string.IsNullOrWhiteSpace(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+else if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container pt-3">
+    <div class="card card-primary card-outline">
+        <form>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="text-right">@ViewData["Title"]</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <button asp-action="Create" asp-controller="Employee" class="btn btn-primary float-right" style="color:white;">Add Employee</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Job Title</th>
+                            <th>Hire Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            @foreach (var employee in Model)
+                            {
+                                <tr>
+                                    <td>@employee.Id</td>
+                                    <td>@employee.FullName</td>
+                                    <td>@employee.JobTitle</td>
+                                    <td>@employee.HireDate?.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id" class="btn btn-secondary">Edit</a>&nbsp&nbsp&nbsp
+                                            <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7">
+                                    <div>
+                                        No Employees
+                                    </div>
+                                </td>
+                            </tr>
+                        } 
+                    </tbody>
+                </table>
+                <div class="container card-tools pt-5">
+                    <ul class="pagination pagination-sm float-right">
+                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+        <!-- /.card-body -->
+    </div>
+</div>
