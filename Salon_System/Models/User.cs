@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Salon_System.Models
 {
     public class User
     {
         public int Id { get; set; }
-        [DisplayName("First Name")] public string? FirstName { get; set; }
-        [DisplayName("Last Name")] public string? LastName { get; set; }
+        [DisplayName("First Name"), Required(ErrorMessage ="This field is required")] public string? FirstName { get; set; }
+        [DisplayName("Last Name"), Required(ErrorMessage = "This field is required")] public string? LastName { get; set; }
         [DisplayName("Gender")] public string? Gender { get; set; }
-        [DisplayName("Date of Birth")] public DateTime? DateOfBirth { get; set; }
-        [DisplayName("Email")] public string? Email { get; set; }
-        [DisplayName("Phone")] public string? Phone { get; set; }
+        [DisplayName("Date of Birth"), Required(ErrorMessage = "This field is required")] public DateTime? DateOfBirth { get; set; }
+        [DisplayName("Email"), Required(ErrorMessage = "This field is required")] public string? Email { get; set; }
+        [DisplayName("Phone"), Required(ErrorMessage = "This field is required")] public string? Phone { get; set; }
         [DisplayName("Address")] public string? Address { get; set; }
         [DisplayName("Suburb")] public string? Suburb { get; set; }
         [DisplayName("City")] public string? City { get; set; }
