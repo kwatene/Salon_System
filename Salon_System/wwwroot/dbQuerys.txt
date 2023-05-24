@@ -1,0 +1,58 @@
+CREATE TABLE [dbo].[Client] (
+    [Id]          INT          IDENTITY (1, 1) NOT NULL,
+    [FirstName]   VARCHAR (20) NOT NULL,
+    [LastName]    VARCHAR (20) NOT NULL,
+    [Gender]      VARCHAR (7)  NULL,
+    [DateOfBirth] DATE         NOT NULL,
+    [Email]       VARCHAR (40) NOT NULL,
+    [Phone]       VARCHAR (15) NOT NULL,
+    [Address]     VARCHAR (50) NULL,
+    [Suburb]      VARCHAR (30) NULL,
+    [City]        VARCHAR (30) NULL,
+    [Country]     VARCHAR (30) NULL,
+    [PostCode]    VARCHAR (6)  NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[Employee] (
+    [Id]          INT          IDENTITY (1, 1) NOT NULL,
+    [FirstName]   VARCHAR (20) NOT NULL,
+    [LastName]    VARCHAR (20) NOT NULL,
+    [Gender]      VARCHAR (7)  NULL,
+    [DateOfBirth] DATE         NOT NULL,
+    [Email]       VARCHAR (40) NOT NULL,
+    [Phone]       VARCHAR (15) NOT NULL,
+    [Address]     VARCHAR (50) NULL,
+    [Suburb]      VARCHAR (30) NULL,
+    [City]        VARCHAR (30) NULL,
+    [Country]     VARCHAR (30) NULL,
+    [PostCode]    VARCHAR (6)  NULL,
+    [JobTitle]    VARCHAR (20) NOT NULL,
+    [JobDesc]     VARCHAR (40) NULL,
+    [HireDate]    DATE         NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[Service] (
+    [Id]          INT          IDENTITY (1, 1) NOT NULL,
+    [Name]        VARCHAR (15) NOT NULL,
+    [Description] VARCHAR (50) NULL,
+    [Duration]    INT          NULL,
+    [Charge]      FLOAT (53)   NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[ServiceCat] (
+    [Id]          INT          IDENTITY (1, 1) NOT NULL,
+    [Name]        VARCHAR (15) NOT NULL,
+    [Description] VARCHAR (50) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[ServicePack] (
+    [Id]          INT          IDENTITY (1, 1) NOT NULL,
+    [Name]        VARCHAR (15) NOT NULL,
+    [Description] VARCHAR (50) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

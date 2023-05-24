@@ -1,4 +1,4 @@
-﻿@model Salon_System.Models.Client
+﻿@model Salon_System.Models.Employee
 
 @{
     ViewData["Title"] = "Delete Client";
@@ -44,6 +44,29 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <div class="form-group">
                                 <input type="hidden" class="form-control" asp-for="Id" readonly />
                             </div>
+                            <div class="col-sm-3">
+                                <!--text input -->
+                                <div class="form-group">
+                                    <label class="form-label">Job Title</label>
+                                    <input type="text" class="form-control" asp-for="JobTitle" readonly />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label class="form-label">Job Description</label>
+                                    <input type="text" class="form-control" asp-for="JobDesc" readonly />
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label class="form-label">Hire Date</label>
+                                    <input type="date" class="form-control" asp-for="HireDate" placeholder="DD/MM/YY" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
                             <div class="col-sm-6">
                                 <!-- Readonly Name -->
                                 <div class="form-group">

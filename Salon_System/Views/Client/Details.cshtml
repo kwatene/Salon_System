@@ -1,7 +1,7 @@
 ﻿@model Salon_System.Models.Client
 
 @{
-    ViewData["Title"] = "Delete Client";
+    ViewData["Title"] = "Details";
     var errorMessage = TempData["errorMessage"]?.ToString();
     var successMessage = TempData["successMessage"]?.ToString();
 }
@@ -23,7 +23,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
 <!-- Title-->
 <div class="container col-sm-10 pt-3">
     <div class="card card-white pt-3">
-        <h2 class="text-center">@ViewData["Title"]</h2>
+        <h2 class="text-center">@ViewData["Title"] for @Model.FullName</h2>
     </div>
 </div>
 
@@ -96,8 +96,11 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             </div>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-danger float-right" onclick="return confirm('Are you sure you want to delete @Model?.FullName from the system?')">Delete</button>
+
+                        <!-- card-footer-->
+                        <div class="card-footer float-right" style="color:white;">
+                            <button type="submit" class="btn btn-secondary" onclick="updateClient(@Model?.Id)">Edit</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete @Model?.FullName from the system?')">Delete</button>
                         </div>
                     </div>
                 </form>

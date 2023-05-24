@@ -46,8 +46,50 @@ namespace Salon_System.Controllers
             return View(clientList); //No records displayed
         }
 
-//-------------------------------------------------------------------------------------------------------------------------------
-//CREATE METHODS
+        //-------------------------------------------------------------------------------------------------------------------------------
+        //VIEW METHODS
+
+        [HttpGet]
+        public IActionResult Details(int id) //Display the client/Update view
+        {
+            try
+            {
+                var record = _context.Client.SingleOrDefault(x => x.Id == id); //Find client record in database by id
+
+                if (record != null) //if found
+                {
+                    var client = new Client() //Add details to client object
+                    {
+                        Id = record.Id,
+                        FirstName = record.FirstName,
+                        LastName = record.LastName,
+                        Gender = record.Gender,
+                        DateOfBirth = record.DateOfBirth,
+                        Email = record.Email,
+                        Phone = record.Phone,
+                        Address = record.Address,
+                        Suburb = record.Suburb,
+                        City = record.City,
+                        Country = record.Country,
+                        PostCode = record.PostCode
+                    };
+                    return View(client); //Display client details
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Client details are not available with ID: {id}"; //If not found - Display message
+                    return RedirectToAction("Index"); //Redirect to Client list
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        //-------------------------------------------------------------------------------------------------------------------------------
+        //CREATE METHODS
 
         [HttpGet]
         public IActionResult Create() //Display the Client/Create View
@@ -252,11 +294,11 @@ namespace Salon_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(Client client)
+        public IActionResult Delete(Client cli)
         {
             try
             {
-                var employee = _context.Client.SingleOrDefault(x => x.Id == client.Id);
+                var client = _context.Client.SingleOrDefault(x => x.Id == cli.Id); //Find client record in database by id
 
                 if (client != null)
                 {
@@ -267,7 +309,7 @@ namespace Salon_System.Controllers
                 }
                 else
                 {
-                    TempData["errorMessage"] = $"Client details not available with Id: {client?.Id}";
+                    TempData["errorMessage"] = $"Client details not available with Id: {cli.Id}";
                     return RedirectToAction("Index");
                 }
             }

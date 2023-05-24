@@ -50,7 +50,7 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                         {
                             @foreach (var client in Model)
                             {
-                                <tr>
+                                <tr onclick="viewClient(@client.Id)">
                                     <td>@client.Id</td>
                                     <td>@client.FullName</td>
                                     <td>@client.Mobile</td>
@@ -91,3 +91,5 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
         <!-- /.card-body -->
     </div>
 </div>
+
+<script src="~/script/navview.js"></script>
