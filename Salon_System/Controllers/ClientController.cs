@@ -230,20 +230,20 @@ namespace Salon_System.Controllers
                                 return RedirectToAction("Index");                   //Redirect to client list
                             }
                             else
-                            {                                                            //Else if record is the same
-                                TempData["sameStateMessage"] = "No changes were made";   //Show same state message
-                                return View();                                           //Stay on same page
+                            {
+                                ModelState.AddModelError("Phone", "Invalid Phone Number");//If phone invalid show error message
+                                return View();
                             }
                         }
                         else
                         {
-                            TempData["errorMessage"] = "Invalid Mobile number"; //If phone invalid show error message
+                            ModelState.AddModelError("Email", "Invalid Email"); //If Email invalid show error message
                             return View();
                         }
                     }
                     else
                     {
-                        TempData["errorMessage"] = "Invalid Email"; //If Email invalid show error message
+                        TempData["errorMessage"] = "Invalid form"; //If Model invalid show error message (system/code error)
                         return View();
                     }
                 }
