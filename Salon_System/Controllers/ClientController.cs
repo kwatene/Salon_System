@@ -129,13 +129,13 @@ namespace Salon_System.Controllers
                         }
                         else
                         {
-                            TempData["errorMessage"] = "Invalid Mobile number"; //If phone invalid show error message
+                            ModelState.AddModelError("Phone", "Invalid Phone Number");//If phone invalid show error message
                             return View();
                         }
                     }
                     else
                     {
-                        TempData["errorMessage"] = "Invalid Email"; //If Email invalid show error message
+                        ModelState.AddModelError("Email", "Invalid Email"); //If Email invalid show error message
                         return View();
                     }
                 }
@@ -221,10 +221,19 @@ namespace Salon_System.Controllers
                                 Country = client.Country,
                                 PostCode = client.PostCode
                             };
-                            _context.Client.Update(updateClient);           //Update client record in database
-                            _context.SaveChanges();                             //Save changes made to database
-                            TempData["successMessage"] = "Update successful";   //Show success message
-                            return RedirectToAction("Index");                   //Redirect to client list
+
+                            if (!updateClient.Equals(client))                       //If the record was changed
+                            {
+                                _context.Client.Update(updateClient);               //Update client record in database
+                                _context.SaveChanges();                             //Save changes made to database
+                                TempData["successMessage"] = "Update successful";   //Show success message
+                                return RedirectToAction("Index");                   //Redirect to client list
+                            }
+                            else
+                            {                                                            //Else if record is the same
+                                TempData["sameStateMessage"] = "No changes were made";   //Show same state message
+                                return View();                                           //Stay on same page
+                            }
                         }
                         else
                         {

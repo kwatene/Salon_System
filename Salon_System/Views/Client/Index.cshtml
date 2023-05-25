@@ -2,23 +2,29 @@
 
 @{
     ViewData["Title"] = "Client List";
-    var successMessage = TempData["successMessage"]?.ToString();
     var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successMessage"]?.ToString();
+    var sameStateMessage = TempData["sameStateMessage"]?.ToString();
 }
-@if (!string.IsNullOrWhiteSpace(successMessage))
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        Error! @errorMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(successMessage))
 {
     <div class="alert alert-success">
         @successMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
-else if (!string.IsNullOrWhiteSpace(errorMessage))
+else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
 {
-    <div class="alert alert-danger">
-        @errorMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert alert-secondary">
+        @sameStateMessage
     </div>
 }
+
 
 <div class="container pt-3">
     <div class="card card-primary card-outline">
