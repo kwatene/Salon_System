@@ -222,7 +222,7 @@ namespace Salon_System.Controllers
                                 PostCode = client.PostCode
                             };
 
-                            if (!updateClient.Equals(client))                       //If the record was changed
+                            if (! client.Equals(updateClient))                       //If the record was changed
                             {
                                 _context.Client.Update(updateClient);               //Update client record in database
                                 _context.SaveChanges();                             //Save changes made to database

@@ -150,8 +150,9 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                         </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary float-right">Submit</button>
+                    <div class="card-footer float-right">
+                        <a asp-controller="Client" asp-action="Index" asp-route-id="@Model?.Id" class="link link-text-decoration-underline">Back</a>&nbsp&nbsp&nbsp
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </form>

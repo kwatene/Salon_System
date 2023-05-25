@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Salon_System.Models
 {
     public class Employee : User
     {
         public new int Id { get; set; }
-        [DisplayName("Job Title")] public string? JobTitle { get; set; } //Employee needs a list of jobs??
+        [DisplayName("Job Title"), Required(ErrorMessage = "This field is required")] public string? JobTitle { get; set; } //Employee needs a list of jobs??
         [DisplayName("Job Description")] public string? JobDesc { get; set; }
         [DisplayName("Hire Date")] public DateTime? HireDate { get; set; }
 

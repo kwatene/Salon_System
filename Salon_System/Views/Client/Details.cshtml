@@ -4,19 +4,24 @@
     ViewData["Title"] = "Details";
     var errorMessage = TempData["errorMessage"]?.ToString();
     var successMessage = TempData["successMessage"]?.ToString();
+    var sameStateMessage = TempData["sameStateMessage"]?.ToString();
 }
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
     <div class="alert alert-danger">
-        <strong>Error! </strong>@errorMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+        Error! @errorMessage
     </div>
 }
 else @if (!string.IsNullOrWhiteSpace(successMessage))
 {
     <div class="alert alert-success">
-        <strong>Error! </strong>@successMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+        @successMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
+{
+    <div class="alert alert-secondary">
+        @sameStateMessage
     </div>
 }
 
