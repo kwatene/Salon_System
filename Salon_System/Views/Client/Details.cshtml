@@ -104,8 +104,9 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
 
                         <!-- card-footer-->
                         <div class="card-footer float-right" style="color:white;">
+                            <a asp-controller="Client" asp-action="Index" asp-route-id="@Model?.Id" class="link link-text-decoration-underline">Back</a>&nbsp&nbsp&nbsp
                             <a asp-controller="Client" asp-action="Update" asp-route-id="@Model?.Id" class="btn btn-secondary">Edit</a>&nbsp&nbsp&nbsp
-                            <a asp-controller="Client" asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete @Model?.FullName from the system?')">Delete</a>
+                            <button type="submit" class="btn btn-danger float-right" onclick="return confirm('Are you sure you want to delete @Model?.FullName from the system?')">Delete</button>
                         </div>
                     </div>
                 </form>

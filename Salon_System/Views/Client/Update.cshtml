@@ -105,7 +105,7 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                             <!-- text input -->
                             <div class="form-group">
                                 <label class="form-label">Address</label><br />
-                                <a>Street Name and Number</a>
+                                <a>Street</a>
                                 <input type="text" class="form-control" asp-for="Address" />
                                 <span asp-validation-for="Address" class="text-danger"></span>
                             </div>
@@ -152,7 +152,7 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                     <!-- /.card-body -->
                     <div class="card-footer float-right">
                         <a asp-controller="Client" asp-action="Index" asp-route-id="@Model?.Id" class="link link-text-decoration-underline">Back</a>&nbsp&nbsp&nbsp
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>
             </form>

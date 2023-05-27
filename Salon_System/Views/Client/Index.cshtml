@@ -64,7 +64,7 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                                     <td>
                                         <div class="btn-group btn-group-sm">
                                             <a asp-controller="Client" asp-action="Update" asp-route-id="@client.Id" class="btn btn-secondary">Edit</a>&nbsp&nbsp&nbsp
-                                            <a asp-controller="Client" asp-action="Delete" asp-route-id="@client.Id" class="btn btn-danger">Delete</a>
+                                            <a asp-controller="Client" asp-action="Details" asp-route-id="@client.Id" class="btn btn-danger">Delete</a>
                                         </div>
                                     </td>
                                 </tr>

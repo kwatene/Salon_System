@@ -7,18 +7,22 @@ namespace Salon_System.Controllers
 {
     public class ClientController : Controller
     {
-        private readonly FeathertouchDbContext _context; //Database
+        private readonly FeathertouchDbContext _context; //Database object to read/write to
 
         public ClientController(FeathertouchDbContext context) //Database Constructor
         {
             this._context = context;
         }
 
+        //---------------------------------------------------------------------------------------------------------------
+        //VIEW ALL CLIENTS
+        //---------------------------------------------------------------------------------------------------------------
+
         [HttpGet]
         public IActionResult Index()    //Display list of Clients in the system
         {
             List<Client> clientList = new();
-            List<Client> list = _context.Client.ToList();
+            List<Client> list = _context.Client.ToList(); //Add all records from database to list
 
             if (list != null) //If there are records
             {
@@ -43,14 +47,15 @@ namespace Salon_System.Controllers
                 }
                 return View(clientList); //Dispay list
             }
-            return View(clientList); //No records displayed
+            return View(clientList); //Else no records displayed
         }
 
-        //-------------------------------------------------------------------------------------------------------------------------------
-        //VIEW METHODS
+        //---------------------------------------------------------------------------------------------------------------
+        //VIEW SELECTED CLIENT
+        //---------------------------------------------------------------------------------------------------------------
 
         [HttpGet]
-        public IActionResult Details(int id) //Display the client/Update view
+        public IActionResult Details(int id) //Display the selected clients details
         {
             try
             {
@@ -88,8 +93,10 @@ namespace Salon_System.Controllers
             }
         }
 
-        //-------------------------------------------------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------------------------------
         //CREATE METHODS
+        //---------------------------------------------------------------------------------------------------------------
+
 
         [HttpGet]
         public IActionResult Create() //Display the Client/Create View
@@ -153,8 +160,10 @@ namespace Salon_System.Controllers
         }
 
 
-//-------------------------------------------------------------------------------------------------------------------------------
-//UPDATE METHODS
+        //---------------------------------------------------------------------------------------------------------------
+        //UPDATE METHODS
+        //---------------------------------------------------------------------------------------------------------------
+
 
         [HttpGet]
         public IActionResult Update(int id) //Display the client/Update view
@@ -222,34 +231,34 @@ namespace Salon_System.Controllers
                                 PostCode = client.PostCode
                             };
 
-                            if (! client.Equals(updateClient))                       //If the record was changed
+                            if (!client.Equals(updateClient))                       //If the record was changed
                             {
                                 _context.Client.Update(updateClient);               //Update client record in database
                                 _context.SaveChanges();                             //Save changes made to database
-                                TempData["successMessage"] = "Update successful";   //Show success message
+                                TempData["successMessage"] = "Client Updated";      //Show success message
                                 return RedirectToAction("Index");                   //Redirect to client list
                             }
                             else
-                            {
-                                ModelState.AddModelError("Phone", "Invalid Phone Number");//If phone invalid show error message
-                                return View();
+                            {                                                       //Else if no changes made
+                                TempData["sameStateMessage"] = "No changes made";   //Show same state message
+                                return RedirectToAction("Index");                   //Redirect to client list
                             }
                         }
                         else
                         {
-                            ModelState.AddModelError("Email", "Invalid Email"); //If Email invalid show error message
+                            ModelState.AddModelError("Phone", "Invalid Phone Number");//If phone invalid show error
                             return View();
                         }
                     }
                     else
                     {
-                        TempData["errorMessage"] = "Invalid form"; //If Model invalid show error message (system/code error)
+                        ModelState.AddModelError("Email", "Invalid Email"); //If Email invalid show error
                         return View();
-                    }
+                    } 
                 }
                 else
                 {
-                    TempData["errorMessage"] = "Invalid Form"; //If Model invalid show error message (system/code error)
+                    TempData["errorMessage"] = "Invalid Form"; //If Model invalid show error
                     return View();
                 }
             }
@@ -260,64 +269,27 @@ namespace Salon_System.Controllers
             }
         }
 
-//-------------------------------------------------------------------------------------------------------------------------------
-//DELETE METHODS
-
-        [HttpGet]
-        public IActionResult Delete(int id) //Display the client/Update view
-        {
-            try
-            {
-                var record = _context.Client.SingleOrDefault(x => x.Id == id); //Find client record in database by id
-
-                if (record != null) //if found
-                {
-                    var client = new Client() //Add details to client object
-                    {
-                        Id = record.Id,
-                        FirstName = record.FirstName,
-                        LastName = record.LastName,
-                        Gender = record.Gender,
-                        DateOfBirth = record.DateOfBirth,
-                        Email = record.Email,
-                        Phone = record.Phone,
-                        Address = record.Address,
-                        Suburb = record.Suburb,
-                        City = record.City,
-                        Country = record.Country,
-                        PostCode = record.PostCode
-                    };
-                    return View(client); //Display client details
-                }
-                else
-                {
-                    TempData["errorMessage"] = $"Client details are not available with ID: {id}"; //If not found - Display message
-                    return RedirectToAction("Index"); //Redirect to Client list
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["errorMessage"] = ex.Message;
-                return RedirectToAction("Index");
-            }
-        }
+        //---------------------------------------------------------------------------------------------------------------
+        //DELETE METHOD (Added the Delete operations in the Details View)
+        //---------------------------------------------------------------------------------------------------------------
 
         [HttpPost]
-        public IActionResult Delete(Client cli)
+        public IActionResult Details(Client cli)
         {
             try
             {
                 var client = _context.Client.SingleOrDefault(x => x.Id == cli.Id); //Find client record in database by id
 
-                if (client != null)
+                if (client != null)     //If record exists
                 {
-                    _context.Client.Remove(client);
-                    _context.SaveChanges();
-                    TempData["successMessage"] = "Client Removed";
-                    return RedirectToAction("Index");
+                    _context.Client.Remove(client);     //Remove Client from database //Note: Add to Archive instead
+                    _context.SaveChanges();             //Save changes
+                    TempData["successMessage"] = "Client Removed";  //Show success message
+                    return RedirectToAction("Index");               //Return to Client/Index
                 }
                 else
                 {
+                    //If record doesn't exist, show error message
                     TempData["errorMessage"] = $"Client details not available with Id: {cli.Id}";
                     return RedirectToAction("Index");
                 }
@@ -329,8 +301,10 @@ namespace Salon_System.Controllers
             }
         }
 
-//-------------------------------------------------------------------------------------------------------------------------------
-//VALIDATION METHODS
+        //---------------------------------------------------------------------------------------------------------------
+        //VALIDATION METHODS
+        //---------------------------------------------------------------------------------------------------------------
+
 
         public bool EmailIsValid(string email) //Checks if email is valid using Regular Expression
         {
@@ -342,8 +316,8 @@ namespace Salon_System.Controllers
 
         public bool PhoneIsValid(string phone)  //Checks if phone is valid using Regular Expression
         {
-            //Check the input contains between 9-12 digits only
-            string pattern =@"^\d{9,12}$";
+            //Basic validation - checks the input starts with 0 followed by 8-11 digits //Need to add other validations such as area codes etc.
+            string pattern =@"^0\d{8,11}$";
 
             return Regex.IsMatch(phone, pattern); //returns true if phone matches pattern else false
         }
