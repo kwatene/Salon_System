@@ -8,18 +8,22 @@
 }
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
+    <!--Displays a red banner with error message-->
     <div class="alert alert-danger">
         Error! @errorMessage
     </div>
 }
 else @if (!string.IsNullOrWhiteSpace(successMessage))
 {
+
+    <!--Displays a green banner with success message-->
     <div class="alert alert-success">
         @successMessage
     </div>
 }
 else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
 {
+    <!--Displays a grey banner with same state message-->
     <div class="alert alert-secondary">
         @sameStateMessage
     </div>
@@ -48,7 +52,6 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,12 +64,6 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                                     <td>@client.FullName</td>
                                     <td>@client.Mobile</td>
                                     <td>@client.Email</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <a asp-controller="Client" asp-action="Update" asp-route-id="@client.Id" class="btn btn-secondary">Edit</a>&nbsp&nbsp&nbsp
-                                            <a asp-controller="Client" asp-action="Details" asp-route-id="@client.Id" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </td>
                                 </tr>
                             }
                         }

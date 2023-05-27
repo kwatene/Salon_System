@@ -8,109 +8,117 @@
 }
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
+    <!--Displays a red banner with error message-->
     <div class="alert alert-danger">
         Error! @errorMessage
     </div>
-}
-else @if (!string.IsNullOrWhiteSpace(successMessage))
+}else @if(!string.IsNullOrWhiteSpace(successMessage))
 {
+
+    <!--Displays a green banner with success message-->
     <div class="alert alert-success">
         @successMessage
     </div>
 }
 else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
 {
+    <!--Displays a grey banner with same state message-->
     <div class="alert alert-secondary">
         @sameStateMessage
     </div>
 }
 
 <!-- Title-->
-<div class="container col-sm-10 pt-3">
-    <div class="card card-white pt-3">
-        <h2 class="text-center">@ViewData["Title"] for @Model.FullName</h2>
+<div class="container pt-3">
+    <div class="card card-primary card-outline">
+        <div class="card-header">
+            <h2 class="text-center">@ViewData["Title"] for @Model.FullName</h2>
+        </div>
+
+        <!-- form start -->
+        <form action="Delete" method="post" autocomplete="off">
+            <div class="card-body ml-5">
+                <!--Row 1-->
+                <div class="row pt-1">
+                    <!-- Id -->
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" asp-for="Id" readonly />
+                    </div>
+
+                    <div class="col-sm-6">
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" asp-for="FullName" readonly />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <!-- Gender -->
+                        <div class="form-group">
+                            <label class="form-label">Gender</label>
+                            <input type="text" class="form-control" asp-for="Gender" readonly />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <!-- DOB -->
+                        <div class="form-group">
+                            <label class="form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" asp-for="DateOfBirth" placeholder="DD/MM/YYYY" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Row 2-->
+                <div class="row pt-3">
+                    <div class="col-sm-6">
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="form-control" asp-for="Email" readonly />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <!-- Mobile -->
+                        <div class="form-group">
+                            <label class="form-label">Mobile</label>
+                            <input type="text" class="form-control" asp-for="Phone" readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <!--Row 3-->
+                <div class="row pt-3">
+                    <div class="col-sm-6">
+                        <!-- Address -->
+                        <div class="form-group">
+                            <label class="form-label">Address</label><br />
+                            <input type="text" class="form-control" asp-for="Address" readonly />
+                            <input type="text" class="form-control" asp-for="Suburb" readonly />
+                            <input type="text" class="form-control" asp-for="City" readonly />
+                            <input type="text" class="form-control" asp-for="Country" readonly />
+                            <input type="text" class="form-control" asp-for="PostCode" readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- card-footer-->
+                <div class="card-footer float-right" style="background-color:transparent;">
+                    <a href="/Client/Index" class="link mr-3">Back</a>
+                    <button type="submit" class="btn btn-danger mr-3" onclick="return confirm('Are you sure you want to remove @Model?.FullName?')">Delete</button>
+                    <a href="/Client/Update/@Model?.Id" class="btn btn-primary mr-5">Update</a>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
-<!-- Client Details Form-->
-<section class="content">
-    <div class="container-fluid col-sm-10">
-        <div class="card card-primary card-outline">
-            <div class="card-header pt-1">
-                <h3 class="card-title">Client Details</h3>
-            </div>
+<script src="~/script/navview.js"></script>
 
-            <div class="card-body">
-                <!-- form start -->
-                <form action="Delete" method="post" autocomplete="off">
-                    <div class="card-body">
-                        <div class="row pt-1">
-                            <!-- Hidden ID -->
-                            <div class="form-group">
-                                <input type="hidden" class="form-control" asp-for="Id" readonly />
-                            </div>
-                            <div class="col-sm-6">
-                                <!-- Readonly Name -->
-                                <div class="form-group">
-                                    <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" asp-for="FullName" readonly />
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <!-- Readonly Gender -->
-                                <div class="form-group">
-                                    <label class="form-label">Gender</label>
-                                    <input type="text" class="form-control" asp-for="Gender" readonly />
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <!-- Readonly DOB -->
-                                <div class="form-group">
-                                    <label class="form-label">Date Of Birth</label>
-                                    <input type="date" class="form-control" asp-for="DateOfBirth" placeholder="DD/MM/YYYY" readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col-sm-6">
-                                <!-- Readonly Email -->
-                                <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="text" class="form-control" asp-for="Email" readonly />
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <!-- Readonly Mobile -->
-                                <div class="form-group">
-                                    <label class="form-label">Mobile</label>
-                                    <input type="text" class="form-control" asp-for="Phone" readonly />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col-sm-6">
-                                <!-- Readonly Address -->
-                                <div class="form-group">
-                                    <label class="form-label">Address</label><br />
-                                    <input type="text" class="form-control" asp-for="Address" readonly />
-                                    <input type="text" class="form-control" asp-for="Suburb" readonly />
-                                    <input type="text" class="form-control" asp-for="City" readonly />
-                                    <input type="text" class="form-control" asp-for="Country" readonly />
-                                    <input type="text" class="form-control" asp-for="PostCode" readonly />
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-
-                        <!-- card-footer-->
-                        <div class="card-footer float-right" style="color:white;">
-                            <a asp-controller="Client" asp-action="Index" asp-route-id="@Model?.Id" class="link link-text-decoration-underline">Back</a>&nbsp&nbsp&nbsp
-                            <a asp-controller="Client" asp-action="Update" asp-route-id="@Model?.Id" class="btn btn-secondary">Edit</a>&nbsp&nbsp&nbsp
-                            <button type="submit" class="btn btn-danger float-right" onclick="return confirm('Are you sure you want to delete @Model?.FullName from the system?')">Delete</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
