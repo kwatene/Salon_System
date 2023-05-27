@@ -3,12 +3,20 @@
 @{
     ViewData["Title"] = "Create New Employee";
     var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["errorMessage"]?.ToString();
 }
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
+    <!--Displays a red banner with error message-->
     <div class="alert alert-danger">
-        <strong>Error! </strong>@errorMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+        Error! @errorMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(successMessage))
+{
+    <!--Displays a green banner with success message-->
+    <div class="alert alert-success">
+        @successMessage
     </div>
 }
 
@@ -19,7 +27,7 @@
     </div>
 </div>
 
-<!-- Update Employee Form-->
+<!-- New Employee Form-->
 <section class="content">
     <div class="container-fluid col-sm-10">
         <div class="card card-primary card-outline">
@@ -30,7 +38,7 @@
             <div class="card-body">
                 <!-- form start -->
                 <form action="Create" method="post" autocomplete="off">
-                    <!--<div id="job-title-container">-->               <!--If Employee has more than one Job Title-->
+                    <!--<div id="job-title-container">--> <!--Add more Job Titles later-->
                     <div class="row pt-3">
                         <div class="col-sm-3">
                             <!--text input -->
@@ -166,8 +174,9 @@
                         </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-secondary float-right">Submit</button>
+                    <div class="card-footer float-right" style="background-color:transparent;">
+                        <a href="/Client/Index" class="link mr-3">Cancel</a>
+                        <button type="submit" class="btn btn-secondary float-right mr-5">Submit</button>
                     </div>
                 </form>
             </div>

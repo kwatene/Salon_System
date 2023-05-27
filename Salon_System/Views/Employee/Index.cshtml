@@ -2,24 +2,34 @@
 
 @{
     ViewData["Title"] = "Employee List";
-    var successMessage = TempData["successMessage"]?.ToString();
     var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successMessage"]?.ToString();
+    var sameStateMessage = TempData["sameStateMessage"]?.ToString();
 }
-@if (!string.IsNullOrWhiteSpace(successMessage))
+@if (!string.IsNullOrWhiteSpace(errorMessage))
 {
-    <div class="alert alert-success">
-        @successMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    <!--Displays a red banner with error message-->
+    <div class="alert alert-danger">
+        Error! @errorMessage
     </div>
 }
-else if (!string.IsNullOrWhiteSpace(errorMessage))
+else @if (!string.IsNullOrWhiteSpace(successMessage))
 {
-    <div class="alert alert-danger">
-        @errorMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    <!--Displays a green banner with success message-->
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
+{
+    <!--Displays a grey banner with same state message-->
+    <div class="alert alert-secondary">
+        @sameStateMessage
     </div>
 }
 
+<!--Title-->
 <div class="container pt-3">
     <div class="card card-primary card-outline">
         <form>
@@ -29,7 +39,7 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                         <h2 class="text-right">@ViewData["Title"]</h2>
                     </div>
                     <div class="col-md-6">
-                        <button asp-action="Create" asp-controller="Employee" class="btn btn-primary float-right" style="color:white;">Add Employee</button>
+                        <a href="/Employee/Create" class="btn btn-primary float-right" style="color:white;">Add Client</a>
                     </div>
                 </div>
             </div>
@@ -42,7 +52,6 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                             <th>Name</th>
                             <th>Job Title</th>
                             <th>Hire Date</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,17 +59,11 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                         {
                             @foreach (var employee in Model)
                             {
-                                <tr>
+                                <tr onclick="viewEmployee(@employee.Id)">
                                     <td>@employee.Id</td>
                                     <td>@employee.FullName</td>
                                     <td>@employee.JobTitle</td>
                                     <td>@employee.HireDate?.ToString("dd/MM/yyyy")</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <a asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id" class="btn btn-secondary">Edit</a>&nbsp&nbsp&nbsp
-                                            <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </td>
                                 </tr>
                             }
                         }
@@ -76,6 +79,7 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                         } 
                     </tbody>
                 </table>
+                <!--    Needs to be coded to work properly -->
                 <div class="container card-tools pt-5">
                     <ul class="pagination pagination-sm float-right">
                         <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -87,6 +91,7 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                 </div>
             </div>
         </form>
-        <!-- /.card-body -->
     </div>
 </div>
+
+<script src="~/script/navview.js"></script>

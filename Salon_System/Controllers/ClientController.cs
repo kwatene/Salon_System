@@ -8,7 +8,7 @@ namespace Salon_System.Controllers
 {
     public class ClientController : Controller
     {
-        private readonly FeathertouchDbContext _context; //Database object to read/write to
+        private readonly FeathertouchDbContext _context; //Global Variable to Connect to Database
 
         public ClientController(FeathertouchDbContext context) //Database Constructor
         {
@@ -116,7 +116,7 @@ namespace Salon_System.Controllers
                     {
                         if (input.Phone != null && PhoneIsValid(input.Phone)) //Check if phone is valid
                         {
-                            var newClient = new Client() //If valid, add input to Client record
+                            var newClient = new Client() //If valid, add input to Client object
                             {
                                 FirstName = input.FirstName,
                                 LastName = input.LastName,
@@ -131,9 +131,9 @@ namespace Salon_System.Controllers
                                 PostCode = input.PostCode
                             };
                             _context.Client.Add(newClient);                             //Add client record to database
-                            _context.SaveChanges();                                         //Save changes made to database
-                            TempData["successMessage"] = "New Client Added";     //Display success message
-                            return RedirectToAction("Index");                               //Redirect user to Client list
+                            _context.SaveChanges();                                     //Save changes made to database
+                            TempData["successMessage"] = "New Client Added";            //Display success message
+                            return RedirectToAction("Index");                           //Redirect user to Client list
                         }
                         else
                         {
@@ -149,7 +149,7 @@ namespace Salon_System.Controllers
                 }
                 else
                 {
-                    TempData["errorMessage"] = "Invalid form"; //If Model invalid show error message (system/code error)
+                    TempData["errorMessage"] = "Invalid form"; //If form invalid show error message
                     return View();
                 }
             }
@@ -273,18 +273,6 @@ namespace Salon_System.Controllers
             }
         }
 
-        public bool ClientIsTheSame(Client client, Client c )
-        {
-            if (c?.FirstName == client?.FirstName && c?.LastName == client?.LastName && c?.Gender == client?.Gender
-            && c?.DateOfBirth == client?.DateOfBirth && c?.Email == client?.Email
-            && c?.Phone == client?.Phone && c?.Address == client?.Address && c?.Suburb == client?.Suburb
-            && c?.City == client?.City && c?.Country == client?.Country && c?.PostCode == client?.PostCode)
-            {
-                return true;
-            }
-            return false;
-        }
-
         //---------------------------------------------------------------------------------------------------------------
         //DELETE METHOD (Delete operations are coded in the Details View)
         //---------------------------------------------------------------------------------------------------------------
@@ -300,7 +288,7 @@ namespace Salon_System.Controllers
                 {
                     _context.Client.Remove(client);                 //Remove Client from database //Note: Add to Archive instead
                     _context.SaveChanges();                         //Save changes
-                    TempData["successMessage"] = "Client Removed";  //Show success message
+                    TempData["successMessage"] = $"Client: {cli.FullName} was removed";  //Show success message
                     return RedirectToAction("Index");               //Return to Client/Index
                 }
                 else
@@ -340,6 +328,18 @@ namespace Salon_System.Controllers
             //Should add more validations
 
             return Regex.IsMatch(phone, pattern); //returns true if phone matches pattern else false
+        }
+
+        public bool ClientIsTheSame(Client client, Client c)
+        {
+            if (c?.FirstName == client?.FirstName && c?.LastName == client?.LastName && c?.Gender == client?.Gender
+            && c?.DateOfBirth == client?.DateOfBirth && c?.Email == client?.Email
+            && c?.Phone == client?.Phone && c?.Address == client?.Address && c?.Suburb == client?.Suburb
+            && c?.City == client?.City && c?.Country == client?.Country && c?.PostCode == client?.PostCode)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -1,32 +1,42 @@
 ﻿@model Salon_System.Models.Employee
 
 @{
-    ViewData["Title"] = "Edit Employee";
+    ViewData["Title"] = "Edit Details";
     var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successMessage"]?.ToString();
+    var sameStateMessage = TempData["sameStateMessage"]?.ToString();
 }
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
+    <!--Displays a red banner with error message-->
     <div class="alert alert-danger">
-        <strong>Error! </strong>@errorMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+        Error! @errorMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(successMessage))
+{
+
+    <!--Displays a green banner with success message-->
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
+{
+    <!--Displays a grey banner with same state message-->
+    <div class="alert alert-secondary">
+        @sameStateMessage
     </div>
 }
 
 <!-- Title-->
-<div class="container col-sm-10 pt-3">
-    <div class="card pt-3">
-        <h2 class="text-center">@ViewData["Title"]</h2>
-    </div>
-</div>
-
-<!-- Update Employee Form-->
 <section class="content">
-    <div class="container-fluid col-sm-10">
+    <div class="container pt-3">
         <div class="card card-primary card-outline">
-            <div class="card-header pt-3">
-                <h3 class="card-title">Employee Details</h3>
+            <div class="card-header">
+                <h2 class="text-center">@ViewData["Title"] for @Model?.FullName</h2>
             </div>
-            
+
             <div class="card-body">
                 <!-- form start -->
                 <form action="" method="post" autocomplete="off">
@@ -166,8 +176,9 @@
                         </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-secondary float-right">Submit</button>
+                    <div class="card-footer float-right" style="background-color:transparent;">
+                        <a href="/Employee/Details/@Model?.Id" class="link mr-3">Cancel</a>
+                        <button type="submit" class="btn btn-primary mr-5">Save</button>
                     </div>
                 </form>
             </div>

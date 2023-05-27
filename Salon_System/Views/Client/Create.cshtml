@@ -1,7 +1,7 @@
 ﻿@model Salon_System.Models.Client
 
 @{
-    ViewData["Title"] = "Create new Client";
+    ViewData["Title"] = "Create New Client";
     var errorMessage = TempData["errorMessage"]?.ToString();
     var successMessage = TempData["successMessage"]?.ToString();
 }
@@ -29,7 +29,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
     </div>
 </div>
 
-<!-- Client Details Form-->
+<!-- New Client Form-->
 <section class="content">
     <div class="container-fluid col-sm-10">
         <div class="card card-primary card-outline">
@@ -149,7 +149,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer float-right" style="background-color:transparent;">
-                            <a asp-controller="Client" asp-action="Index" class="link mr-3">Cancel</a>
+                            <a href="/Client/Index" class="link mr-3">Cancel</a>
                             <button type="submit" class="btn btn-primary float-right mr-5">Save</button>
                         </div>
                     </div>
