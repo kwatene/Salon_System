@@ -4,7 +4,6 @@
     ViewData["Title"] = "Employee List";
     var errorMessage = TempData["errorMessage"]?.ToString();
     var successMessage = TempData["successMessage"]?.ToString();
-    var sameStateMessage = TempData["sameStateMessage"]?.ToString();
 }
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
@@ -21,13 +20,6 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
         @successMessage
     </div>
 }
-else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
-{
-    <!--Displays a grey banner with same state message-->
-    <div class="alert alert-secondary">
-        @sameStateMessage
-    </div>
-}
 
 <!--Title-->
 <div class="container pt-3">
@@ -39,7 +31,7 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                         <h2 class="text-right">@ViewData["Title"]</h2>
                     </div>
                     <div class="col-md-6">
-                        <a href="/Employee/Create" class="btn btn-primary float-right" style="color:white;">Add Client</a>
+                        <a href="/Employee/Create" class="btn btn-primary float-right" style="color:white;">Add Employee</a>
                     </div>
                 </div>
             </div>

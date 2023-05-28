@@ -2,31 +2,6 @@
 
 @{
     ViewData["Title"] = "Edit Details";
-    var errorMessage = TempData["errorMessage"]?.ToString();
-    var successMessage = TempData["successMessage"]?.ToString();
-    var sameStateMessage = TempData["sameStateMessage"]?.ToString();
-}
-@if (!string.IsNullOrWhiteSpace(errorMessage))
-{
-    <!--Displays a red banner with error message-->
-    <div class="alert alert-danger">
-        Error! @errorMessage
-    </div>
-}
-else @if (!string.IsNullOrWhiteSpace(successMessage))
-{
-
-    <!--Displays a green banner with success message-->
-    <div class="alert alert-success">
-        @successMessage
-    </div>
-}
-else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
-{
-    <!--Displays a grey banner with same state message-->
-    <div class="alert alert-secondary">
-        @sameStateMessage
-    </div>
 }
 
 <!-- Title-->
@@ -177,7 +152,7 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer float-right" style="background-color:transparent;">
-                        <a href="/Employee/Details/@Model?.Id" class="link mr-3">Cancel</a>
+                        <a href="/Employee/Details/@Html.Encode(@Model?.Id)" class="link mr-3">Cancel</a>
                         <button type="submit" class="btn btn-primary mr-5">Save</button>
                     </div>
                 </form>

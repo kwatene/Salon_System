@@ -24,7 +24,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
 else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
 {
     <!--Displays a grey banner with same state message-->
-    <div class="alert alert-secondary">
+    <div class="alert alert-primary">
         @sameStateMessage
     </div>
 }
@@ -141,9 +141,3 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
 </div>
 
 <script src="~/script/navview.js"></script>
-
-@section Scripts{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

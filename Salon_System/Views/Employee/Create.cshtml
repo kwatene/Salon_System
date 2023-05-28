@@ -1,43 +1,19 @@
 ﻿@model Salon_System.Models.Employee
 
 @{
-    ViewData["Title"] = "Create New Employee";
-    var errorMessage = TempData["errorMessage"]?.ToString();
-    var successMessage = TempData["errorMessage"]?.ToString();
-}
-@if (!string.IsNullOrWhiteSpace(errorMessage))
-{
-    <!--Displays a red banner with error message-->
-    <div class="alert alert-danger">
-        Error! @errorMessage
-    </div>
-}
-else @if (!string.IsNullOrWhiteSpace(successMessage))
-{
-    <!--Displays a green banner with success message-->
-    <div class="alert alert-success">
-        @successMessage
-    </div>
+    ViewData["Title"] = "New Employee";
 }
 
-<!-- Title-->
-<div class="container col-sm-10 pt-3">
-    <div class="card card-white pt-3">
-        <h2 class="text-center">@ViewData["Title"]</h2>
-    </div>
-</div>
-
-<!-- New Employee Form-->
+<!--Title-->
 <section class="content">
-    <div class="container-fluid col-sm-10">
+    <div class="container pt-3">
         <div class="card card-primary card-outline">
-            <div class="card-header pt-3">
-                <h3 class="card-title">Employee Details</h3>
+            <div class="card-header">
+                <h2 class="text-center">@ViewData["Title"]</h2>
             </div>
-
-            <div class="card-body">
-                <!-- form start -->
-                <form action="Create" method="post" autocomplete="off">
+            <!-- New Employee Form-->
+            <form action="Create" method="post" autocomplete="off">
+                <div class="card-body">
                     <!--<div id="job-title-container">--> <!--Add more Job Titles later-->
                     <div class="row pt-3">
                         <div class="col-sm-3">
@@ -65,8 +41,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             </div>
                         </div>
                     </div>
-                    <!--<button id="add-job-title" class="btn btn-secondary float-right">Add Job Title</button>-->  <!--Button to Add more Job Titles-->
-
+                <!--<button id="add-job-title" class="btn btn-secondary float-right">Add Job Title</button>-->  <!--Button to Add more Job Titles-->
                     <div class="row  pt-3">
                         <div class="col-sm-3">
                             <!-- text input -->
@@ -89,7 +64,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <div class="form-group">
                                 <label class="form-label">Gender</label>
                                 <select class="form-control" asp-for="Gender">
-                                    <option>Select</option>
+                                    <option disabled selected value="">Select</option>
                                     <option>Female</option>
                                     <option>Male</option>
                                     <option>Rather not say</option>
@@ -173,13 +148,13 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             </div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer float-right" style="background-color:transparent;">
-                        <a href="/Client/Index" class="link mr-3">Cancel</a>
-                        <button type="submit" class="btn btn-secondary float-right mr-5">Submit</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer float-right" style="background-color:transparent;">
+                    <a href="/Employee/Index" class="link mr-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary mr-5">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>

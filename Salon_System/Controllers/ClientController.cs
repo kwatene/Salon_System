@@ -288,7 +288,7 @@ namespace Salon_System.Controllers
                 {
                     _context.Client.Remove(client);                 //Remove Client from database //Note: Add to Archive instead
                     _context.SaveChanges();                         //Save changes
-                    TempData["successMessage"] = $"Client: {cli.FullName} was removed";  //Show success message
+                    TempData["successMessage"] = $"Client Removed";  //Show success message
                     return RedirectToAction("Index");               //Return to Client/Index
                 }
                 else
