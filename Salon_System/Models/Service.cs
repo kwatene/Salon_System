@@ -15,6 +15,10 @@ namespace Salon_System.Models
 
         [DisplayName("Charge"), Required(ErrorMessage = "This field is required")] public decimal? Charge { get; set; }
 
+        [DisplayName("Category")] public ServiceCategory? Category { get; set; }
+
+        [DisplayName("Capable Staff"), Required(ErrorMessage = "This field is required")] List<Employee>? CapableStaff { get; set; }
+
         //[DisplayName("Age Restricted")] public int? AgeRestricted { get; set; } //AgeRestriction??
 
         //public List<Employee>? CapableEmployee { get; set; } //Assign capable Employees??

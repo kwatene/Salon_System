@@ -45,14 +45,14 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                         <div class="col-sm-5 ml-3">
                             <div class="form-group">
                                 <!-- Select multiple-->
-                                <label>Select Category</label>
-                                <select class="form-control">
-                                    <option disabled selected>Select Category</option>
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                    <option>option 5</option>
+                                <label class="form-label">Category</label>
+                                <select class="form-control" asp-for="Category">
+                                    <option disabled selected>Select</option>
+                                    @foreach(var category in ViewBag.Categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                    <span asp-validation-for="Category" class="text-danger"></span>
                                 </select>
                             </div>
                         </div>
@@ -70,13 +70,13 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                         <div class="col-sm-5 ml-3">
                             <div class="form-group">
                                 <!-- Select multiple-->
+                                <!-- Fill options when Employee Class/Db configured-->
                                 <label>Select Employees</label>
                                 <select multiple class="form-control">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                    <option>option 5</option>
+                                @foreach (var category in ViewBag.Categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
                                 </select>
                             </div>
                         </div>
@@ -87,7 +87,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <!-- text input -->
                             <div class="form-group">
                                 <label class="form-label">Charge</label>
-                                <input type="number" class="form-control" asp-for="Charge" max="0" placeholder="$0.00"/>
+                                <input type="number" class="form-control" asp-for="Charge" step="0.01" placeholder="$0.00"/>
                                 <span asp-validation-for="Charge" class="text-danger"></span>
                             </div>
                         </div>

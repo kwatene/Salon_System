@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Salon_System.Data;
 using Salon_System.Models;
+using Salon_System.Models.ViewModels;
 
 namespace Salon_System.Controllers
 {
@@ -44,8 +45,24 @@ namespace Salon_System.Controllers
 
 
         [HttpGet]
-        public IActionResult Create() //Display the Service/Create View
+        public dynamic Create() //Display the Service/Create View
         {
+            List<ServiceCategory> categories = new();
+            var category = _context.ServiceCategory.ToList();
+
+            if (category != null)
+            {
+                foreach (var c in category)
+                {
+                    var Category = new ServiceCategory()
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    };
+                    categories.Add(Category);
+                }
+                ViewBag.Categories = categories;
+            }
             return View();
         }
 
