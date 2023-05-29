@@ -1,3 +1,5 @@
+//Scripts to navigate to view onClick
+
 function viewClient(clientId) {
     window.location.href = "/Client/Details/" + clientId;
 }
@@ -12,4 +14,12 @@ function viewEmployee(employeeId) {
 
 function updateEmployee(employeeId) {
     window.location.href = "/Employee/Update/" + employeeId;
+}
+
+function viewService(serviceId) {
+    window.location.href = "/Service/Details/" + serviceId;
+}
+
+function updateService(serviceId) {
+    window.location.href = "/Service/Update/" + serviceId;
 }

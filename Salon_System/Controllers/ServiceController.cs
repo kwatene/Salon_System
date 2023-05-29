@@ -38,16 +38,53 @@ namespace Salon_System.Controllers
             return View(serviceList);
         }
 
-        //Create a new Service
-        public IActionResult Create()
+        //---------------------------------------------------------------------------------------------------------------
+        //CREATE METHODS
+        //---------------------------------------------------------------------------------------------------------------
+
+
+        [HttpGet]
+        public IActionResult Create() //Display the Service/Create View
         {
-            //Assign Service Category
-            //Assign Consent
-            //Apply Age Restriction
             return View();
         }
 
-        //Update an existing Service
+        [HttpPost]
+        public IActionResult Create(Service service) //Creates and saves a new Service in the system
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                        var newService = new Service() //If valid, add input to Service object
+                        {
+                            Name = service.Name,
+                            Description = service.Description,
+                            Duration = service.Duration,
+                            Charge = service.Charge
+                        };
+                        _context.Service.Add(service);                              //Add service record to database
+                        _context.SaveChanges();                                     //Save changes made to database
+                        TempData["successMessage"] = "New Client Added";            //Display success message
+                        return RedirectToAction("Index");                           //Redirect user to Service list
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Invalid form"; //If form invalid show error message
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return View();
+            }
+        }
+
+        //---------------------------------------------------------------------------------------------------------------
+        //UPDATE METHODS
+        //---------------------------------------------------------------------------------------------------------------
+
         public IActionResult Update()
         {
             return View();

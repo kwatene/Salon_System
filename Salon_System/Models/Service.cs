@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Salon_System.Models
 {
@@ -6,13 +7,13 @@ namespace Salon_System.Models
     {
         public int Id { get; set; }
 
-        [DisplayName("Name")] public string? Name { get; set; }
+        [DisplayName("Name"), Required(ErrorMessage = "This field is required")] public string? Name { get; set; }
 
-        [DisplayName("Description")] public string? Description { get; set; }
+        [DisplayName("Description"), Required(ErrorMessage = "This field is required")] public string? Description { get; set; }
 
-        [DisplayName("Charge")] public float? Charge { get; set; }
+        [DisplayName("Duration"), Required(ErrorMessage = "This field is required")] public TimeSpan? Duration { get; set; }
 
-        [DisplayName("Duration")] public DateTime? Duration { get; set; }
+        [DisplayName("Charge"), Required(ErrorMessage = "This field is required")] public decimal? Charge { get; set; }
 
         //[DisplayName("Age Restricted")] public int? AgeRestricted { get; set; } //AgeRestriction??
 

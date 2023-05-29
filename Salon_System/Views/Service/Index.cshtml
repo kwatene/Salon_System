@@ -2,24 +2,26 @@
 
 @{
     ViewData["Title"] = "Services";
-    var successMessage = TempData["successMessage"]?.ToString();
     var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successMessage"]?.ToString();
 }
-@if (!string.IsNullOrWhiteSpace(successMessage))
+@if (!string.IsNullOrWhiteSpace(errorMessage))
 {
-    <div class="alert alert-success">
-        @successMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    <!--Displays a red banner with error message-->
+    <div class="alert alert-danger">
+        Error! @errorMessage
     </div>
 }
-else if (!string.IsNullOrWhiteSpace(errorMessage))
+else @if (!string.IsNullOrWhiteSpace(successMessage))
 {
-    <div class="alert alert-danger">
-        @errorMessage
-        <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    <!--Displays a green banner with success message-->
+    <div class="alert alert-success">
+        @successMessage
     </div>
 }
 
+<!--Title/Header-->
 <div class="container pt-3">
     <div class="card card-primary card-outline">
         <form>
@@ -29,11 +31,11 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                         <h2 class="text-right">@ViewData["Title"]</h2>
                     </div>
                     <div class="col-md-6">
-                        <button asp-action="Create" asp-controller="Service" class="btn btn-primary float-right" style="color:white;">Add Service</button>
+                        <a href="/Service/Create" class="btn btn-primary float-right" style="color:white;">Add Service</a>
                     </div>
                 </div>
             </div>
-            <!-- /.card-header -->
+            <!-- card-body -->
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                     <thead>
@@ -44,7 +46,7 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                             <th>Duration</th>
                             <th>Charge</th>
                             <th>Category</th>
-                            <th>Action</th>
+                            <th>Employee</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,18 +54,12 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                         {
                             @foreach (var service in Model)
                             {
-                                <tr>
+                                <tr onclick="viewService(@service.Id)">
                                     <td>@service.Id</td>
                                     <td>@service.Name</td>
                                     <td>@service.Description</td>
-                                    <td>@service.Duration?.ToString("HH:mm")</td>
-                                    <td>@service.Charge</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <a asp-controller="Service" asp-action="Update" asp-route-id="@service.Id" class="btn btn-secondary">Edit</a>&nbsp&nbsp&nbsp
-                                            <a asp-controller="Service" asp-action="Delete" asp-route-id="@service.Id" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </td>
+                                    <td>@service.Duration</td>
+                                    <td>@service.Charge?.ToString("0.00")</td>
                                 </tr>
                             }
                         }
@@ -79,17 +75,19 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                         }
                     </tbody>
                 </table>
+                <!--    Needs to be coded to work properly -->
                 <div class="container card-tools pt-5">
                     <ul class="pagination pagination-sm float-right">
                         <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                         <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <!--<li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
                         <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                     </ul>
                 </div>
             </div>
         </form>
-        <!-- /.card-body -->
     </div>
 </div>
+
+<script src="~/script/navview.js"></script>

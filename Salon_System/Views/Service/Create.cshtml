@@ -1,13 +1,118 @@
-﻿@{
-    ViewData["Title"] = "Create Service";
+﻿@model Salon_System.Models.Service
+
+@{
+    ViewData["Title"] = "New Service";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successMessage"]?.ToString();
+}
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <!--Displays a red banner with error message-->
+    <div class="alert alert-danger">
+        Error! @errorMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(successMessage))
+{
+
+    <!--Displays a green banner with success message-->
+    <div class="alert alert-success">
+        @successMessage
+    </div>
 }
 
-<!--
-    Description
-    Fee
-    Duration
-    Apply Age Restriction - Check box - Enter age
-    Consent Form - Drop down box - Select 1 Consent form
-    Service Category - Drop down box - Select 1 Category
-    Employees who can perform the service - Drop Down Box - Select multiple Employees
--->
+<!--Title-->
+<section class="content">
+    <div class="container pt-3">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h2 class="text-center">@ViewData["Title"]</h2>
+            </div>
+
+            <!-- form start/card body -->
+            <div class="card-body ml-5">
+                <form action="Create" method="post" autocomplete="off">
+                    <!--Row 1-->
+                    <div class="row pt-1">
+                        <div class="col-sm-5">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" asp-for="Name" placeholder="Enter Service Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 ml-3">
+                            <div class="form-group">
+                                <!-- Select multiple-->
+                                <label>Select Category</label>
+                                <select class="form-control">
+                                    <option disabled selected>Select Category</option>
+                                    <option>option 1</option>
+                                    <option>option 2</option>
+                                    <option>option 3</option>
+                                    <option>option 4</option>
+                                    <option>option 5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Row 2-->
+                    <div class="row pt-3">
+                        <div class="col-sm-5">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" rows="3" asp-for="Description" placeholder="Enter Service Description"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 ml-3">
+                            <div class="form-group">
+                                <!-- Select multiple-->
+                                <label>Select Employees</label>
+                                <select multiple class="form-control">
+                                    <option>option 1</option>
+                                    <option>option 2</option>
+                                    <option>option 3</option>
+                                    <option>option 4</option>
+                                    <option>option 5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Row 2-->
+                    <div class="row pt-3">
+                        <div class="col-sm-2">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Charge</label>
+                                <input type="number" class="form-control" asp-for="Charge" max="0" placeholder="$0.00"/>
+                                <span asp-validation-for="Charge" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 ml-3">
+                            <!-- text input -->
+                            <div class="form-group row">
+                                <label class="form-label">Duration</label>
+                                <input type="number" class="form-control" asp-for="Duration" max="0" placeholder="$0.00" />
+                                <span asp-validation-for="Duration" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card-footer -->
+                    <div class="card-footer float-right" style="background-color:transparent;">
+                        <a href="/Service/Index" class="link mr-3">Cancel</a>
+                        <button type="submit" class="btn btn-primary mr-5">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
