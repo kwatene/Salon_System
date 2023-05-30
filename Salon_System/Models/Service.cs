@@ -17,18 +17,10 @@ namespace Salon_System.Models
 
         [DisplayName("Category")] public ServiceCategory? Category { get; set; }
 
-        [DisplayName("Capable Staff"), Required(ErrorMessage = "This field is required")] List<Employee>? CapableStaff { get; set; }
+        //[DisplayName("Capable Staff"), Required(ErrorMessage = "This field is required")] public List<int>? CapableStaff { get; set; }
 
         //[DisplayName("Age Restricted")] public int? AgeRestricted { get; set; } //AgeRestriction??
-
-        //public List<Employee>? CapableEmployee { get; set; } //Assign capable Employees??
-
-        /*
-        //Assign Consent Form
-        public ConsentForm ConsentForm { get; set; }
-
-        //Assign ServiceCategory
-        public ServiceCategory Category { get; set; }*/
+        //public ConsentForm ConsentForm { get; set; }
 
         //Parameterless Constructor
         public Service() { }

@@ -12,6 +12,9 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="~/css/adminlte.min.css">
     <link rel="stylesheet" href="~/css/style.css" />
+    <!-- Select 2 -->
+    <link rel="stylesheet" href="~/css/select2.css" />
+    <link rel="stylesheet" href="~/css/select2.min.css" />
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -42,14 +45,13 @@
             </a>
         </nav>
         <!-- /.navbar -->
-
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <header>
-            <!-- Brand Logo -->
-            <a href="#" class="brand-link">
-                <img src="/img/Feathertouch.jpg" alt="Business Logo" class="business-logo"/>
-            </a>
+                <!-- Brand Logo -->
+                <a href="#" class="brand-link">
+                    <img src="/img/Feathertouch.jpg" alt="Business Logo" class="business-logo" />
+                </a>
             </header>
             <!-- Sidebar -->
             <div class="sidebar">
@@ -185,7 +187,6 @@
             @RenderBody()
         </div>
         <!-- /.page content -->
-
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
@@ -195,7 +196,6 @@
             </div>
         </aside>
         <!-- /.control-sidebar -->
-
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
@@ -207,7 +207,6 @@
         </footer>
     </div>
     <!-- ./wrapper -->
-
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -218,6 +217,14 @@
     <!-- Custom -->
     <script src="~/css/style.css"></script>
     <script src="~/js/custom.js"></script>
-    @RenderSection("scripts", required:false)
+    <!-- Select 2-->
+    <script src="~/js/select2.min.js"></script>
+
+    <!--Page specific script-->
+    <script>
+        //Initialize Select2 Elements
+        $('.select2').select2()
+    </script>
+@RenderSection("scripts", required:false)
 </body>
 </html>

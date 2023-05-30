@@ -71,13 +71,23 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <div class="form-group">
                                 <!-- Select multiple-->
                                 <!-- Fill options when Employee Class/Db configured-->
-                                <label>Select Employees</label>
-                                <select multiple class="form-control">
-                                @foreach (var category in ViewBag.Categories)
-                                {
-                                    <option value="@category.Id">@category.Name</option>
-                                }
+                                <label>Select Staff</label>
+                                <select class="form-control selectEmp" multiple="multiple" data-placeholder="Select Employee" style="width: 100%;">
+
+                                    <option>Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
                                 </select>
+                                <!--<select class="select2-purple" multiple="multiple" data-placeholder="Select Staff" style="width: 100%;">
+                                    @foreach (var category in ViewBag.Categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                </select>-->
                             </div>
                         </div>
                     </div>
@@ -110,7 +120,6 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
         </div>
     </div>
 </section>
-
 @section Scripts{
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

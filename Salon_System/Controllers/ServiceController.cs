@@ -47,21 +47,38 @@ namespace Salon_System.Controllers
         [HttpGet]
         public dynamic Create() //Display the Service/Create View
         {
-            List<ServiceCategory> categories = new();
-            var category = _context.ServiceCategory.ToList();
+            List<ServiceCategory> categoryList = new();
+            List<Employee> employeeList = new();
+            var categories = _context.ServiceCategory.ToList();
+            var employees = _context.Employee.ToList();
 
-            if (category != null)
+            if (categories != null)
             {
-                foreach (var c in category)
+                foreach (var c in categories)
                 {
                     var Category = new ServiceCategory()
                     {
                         Id = c.Id,
                         Name = c.Name
                     };
-                    categories.Add(Category);
+                    categoryList.Add(Category);
                 }
-                ViewBag.Categories = categories;
+                ViewBag.Categories = categoryList;
+            }
+
+            if(employees != null)
+            {
+                foreach (var e in employees)
+                {
+                    var Employee = new Employee()
+                    {
+                        Id = e.Id,
+                        FirstName = e.FirstName,
+                        LastName = e.LastName
+                    };
+                    employeeList.Add(Employee);
+                }
+                ViewBag.Employees = employeeList;
             }
             return View();
         }

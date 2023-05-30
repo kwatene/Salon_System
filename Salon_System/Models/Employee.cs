@@ -25,7 +25,15 @@ namespace Salon_System.Models
             HireDate = hireDate;
         }
 
-        //Initialised Constructor Create
+        //Initialised Constructor Create Get
+        public Employee(int id, string? firstName, string? lastName)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        //Initialised Constructor Create Post
         public Employee(string? jobTitle, string? jobDesc, DateTime? hireDate, string? firstName, string? lastName, string? gender, DateTime? dob, string? email, string? phone, string? address, string? suburb, string? city, string? country, string? postcode)
         {
             JobTitle = jobTitle;
