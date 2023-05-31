@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Microsoft.EntityFrameworkCore;
 using Salon_System.Data;
 using Salon_System.Models;
 using Salon_System.Models.ViewModels;
@@ -13,6 +15,10 @@ namespace Salon_System.Controllers
         {
             this._context = context;
         }
+
+        //---------------------------------------------------------------------------------------------------------------
+        //VIEW ALL CLIENTS
+        //---------------------------------------------------------------------------------------------------------------
 
         [HttpGet]
         public IActionResult Index()  //View list of Services (Main Services Page)
@@ -31,13 +37,54 @@ namespace Salon_System.Controllers
                         Description = service.Description,
                         DurationHours = service.DurationHours,
                         DurationMins = service.DurationMins,
-                        Charge = service.Charge
+                        Charge = service.Charge,
+                        Category = service.Category
                     };
-                    serviceList.Add(Service);
+                    var record = _context.ServiceCategory.SingleOrDefault(x => x.Id == service.Category); //Find record in database by id
+                    ViewBag.Category = record?.Name;                                                      //Use category name in view
+                    serviceList.Add(Service);                                                             //Add record to list
                 }
-                return View(serviceList);
+                return View(serviceList);                                                                 //Use list in view
             }
             return View(serviceList);
+        }
+
+        //---------------------------------------------------------------------------------------------------------------
+        //VIEW SELECTED CLIENT
+        //---------------------------------------------------------------------------------------------------------------
+
+        [HttpGet]
+        public IActionResult Details(int id) //Display the selected clients details
+        {
+            try
+            {
+                var record = _context.Service.SingleOrDefault(x => x.Id == id); //Find client record in database by id
+
+                if (record != null) //if found
+                {
+                    var service = new Service() //Add details to client object
+                    {
+                        Id = record.Id,
+                        Name = record.Name,
+                        Description = record.Description,
+                        DurationHours = record.DurationHours,
+                        DurationMins = record.DurationMins,
+                        Charge = record.Charge,
+                        Category = record.Category
+                    };
+                    return View(service); //Display client details
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Service details are not available with ID: {id}"; //If not found - Display message
+                    return RedirectToAction("Index"); //Redirect to Client list
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         //---------------------------------------------------------------------------------------------------------------
