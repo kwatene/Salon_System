@@ -11,11 +11,13 @@ namespace Salon_System.Models
 
         [DisplayName("Description"), Required(ErrorMessage = "This field is required")] public string? Description { get; set; }
 
-        [DisplayName("Duration"), Required(ErrorMessage = "This field is required")] public TimeSpan? Duration { get; set; }
+        [DisplayName("Duration"), Required(ErrorMessage = "This field is required")] public int DurationHours { get; set; }
+
+        [DisplayName("Duration"), Required(ErrorMessage = "This field is required")] public int DurationMins { get; set; }
 
         [DisplayName("Charge"), Required(ErrorMessage = "This field is required")] public decimal? Charge { get; set; }
 
-        [DisplayName("Category")] public ServiceCategory? Category { get; set; }
+        [DisplayName("Category")] public int? Category { get; set; }
 
         //[DisplayName("Capable Staff"), Required(ErrorMessage = "This field is required")] public List<int>? CapableStaff { get; set; }
 

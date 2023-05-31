@@ -16,7 +16,6 @@ namespace Salon_System.Data
         //Dataset for Employee class
         public DbSet<Employee> Employee { get; set; }
 
-
         //Dataset for Service class
         public DbSet<Service> Service { get; set; }
 

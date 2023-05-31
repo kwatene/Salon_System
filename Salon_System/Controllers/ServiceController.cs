@@ -29,7 +29,8 @@ namespace Salon_System.Controllers
                         Id = service.Id,
                         Name = service.Name,
                         Description = service.Description,
-                        Duration = service.Duration,
+                        DurationHours = service.DurationHours,
+                        DurationMins = service.DurationMins,
                         Charge = service.Charge
                     };
                     serviceList.Add(Service);
@@ -52,7 +53,7 @@ namespace Salon_System.Controllers
             var categories = _context.ServiceCategory.ToList();
             var employees = _context.Employee.ToList();
 
-            if (categories != null)
+            if (categories != null) //Select Category for Service
             {
                 foreach (var c in categories)
                 {
@@ -66,7 +67,7 @@ namespace Salon_System.Controllers
                 ViewBag.Categories = categoryList;
             }
 
-            if(employees != null)
+            if(employees != null) //Select Capable staff for Service
             {
                 foreach (var e in employees)
                 {
@@ -80,6 +81,7 @@ namespace Salon_System.Controllers
                 }
                 ViewBag.Employees = employeeList;
             }
+
             return View();
         }
 
@@ -94,8 +96,10 @@ namespace Salon_System.Controllers
                         {
                             Name = service.Name,
                             Description = service.Description,
-                            Duration = service.Duration,
-                            Charge = service.Charge
+                            DurationHours = service.DurationHours,
+                            DurationMins = service.DurationMins,
+                            Charge = service.Charge,
+                            Category = service.Category
                         };
                         _context.Service.Add(service);                              //Add service record to database
                         _context.SaveChanges();                                     //Save changes made to database

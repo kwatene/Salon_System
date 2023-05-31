@@ -1,0 +1,39 @@
+﻿@model Salon_System.Models.Service
+
+@{
+    ViewData["Title"] = "Details";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successMessage"]?.ToString();
+    var sameStateMessage = TempData["sameStateMessage"]?.ToString();
+}
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <!--Displays a red banner with error message-->
+    <div class="alert alert-danger">
+        Error! @errorMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(successMessage))
+{
+
+    <!--Displays a green banner with success message-->
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
+{
+    <!--Displays a grey banner with same state message-->
+    <div class="alert alert-primary">
+        @sameStateMessage
+    </div>
+}
+
+<!-- Title-->
+<div class="container pt-3">
+    <div class="card card-primary card-outline">
+        <div class="card-header">
+            <h2 class="text-center">@ViewData["Title"] for @Model.Name</h2>
+        </div>
+    </div>
+</div>

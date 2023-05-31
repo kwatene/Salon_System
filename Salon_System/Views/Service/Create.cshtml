@@ -73,21 +73,11 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                                 <!-- Fill options when Employee Class/Db configured-->
                                 <label>Select Staff</label>
                                 <select class="form-control selectEmp" multiple="multiple" data-placeholder="Select Employee" style="width: 100%;">
-
-                                    <option>Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>California</option>
-                                    <option>Delaware</option>
-                                    <option>Tennessee</option>
-                                    <option>Texas</option>
-                                    <option>Washington</option>
-                                </select>
-                                <!--<select class="select2-purple" multiple="multiple" data-placeholder="Select Staff" style="width: 100%;">
-                                    @foreach (var category in ViewBag.Categories)
+                                    @foreach (var emp in ViewBag.Employees)
                                     {
-                                        <option value="@category.Id">@category.Name</option>
+                                        <option value="@emp.Id">@emp.FirstName @emp.LastName</option>
                                     }
-                                </select>-->
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -101,12 +91,20 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                                 <span asp-validation-for="Charge" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-sm-2 ml-3">
+                        <div class="col-sm-1 ml-3">
                             <!-- text input -->
                             <div class="form-group row">
-                                <label class="form-label">Duration</label>
-                                <input type="number" class="form-control" asp-for="Duration" max="0" placeholder="$0.00" />
-                                <span asp-validation-for="Duration" class="text-danger"></span>
+                                <label class="form-label">hrs</label>
+                                <input type="number" class="form-control" asp-for="DurationHours" max="23" min="0" />
+                                <span asp-validation-for="DurationHours" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 ml=2">
+                            <!-- text input -->
+                            <div class="form-group row">
+                                <label class="form-label">mins</label>
+                                <input type="number" class="form-control" asp-for="DurationMins" max="59" min="0"/>
+                                <span asp-validation-for="DurationMins" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
