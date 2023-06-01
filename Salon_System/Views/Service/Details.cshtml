@@ -34,6 +34,76 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
     <div class="card card-primary card-outline">
         <div class="card-header">
             <h2 class="text-center">@ViewData["Title"] for @Model.Name</h2>
+
+            <!-- form start/card body -->
+            <div class="card-body ml-5">
+                <form action="Delete" method="post" autocomplete="off">
+                    <!--Row 1-->
+                    <div class="row pt-1">
+                        <div class="col-sm-5">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" asp-for="Name" readonly />
+                            </div>
+                        </div>
+                        <div class="col-sm-5 ml-3">
+                            <div class="form-group">
+                                <!-- Select multiple-->
+                                <label class="form-label">Category</label>
+                                <input type="text" class="form-control" asp-for="CategoryId" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <!--Row 2-->
+                    <div class="row pt-3">
+                        <div class="col-sm-5">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" rows="3" asp-for="Description" readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 ml-3">
+                            <div class="form-group">
+                                <!-- Select multiple-->
+                                <label class="form-label">Capable Staff</label>
+                                <input type="text" class="form-control" asp-for="EmployeeId" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <!--Row 2-->
+                    <div class="row pt-3">
+                        <div class="col-sm-2">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Charge</label>
+                                <input type="number" class="form-control" asp-for="Charge" readonly />
+                            </div>
+                        </div>
+                        <div class="col-sm-1 ml-3">
+                            <!-- text input -->
+                            <div class="form-group row">
+                                <label class="form-label">hrs</label>
+                                <input type="number" class="form-control" asp-for="DurationHours" readonly />
+                            </div>
+                        </div>
+                        <div class="col-sm-1 ml=2">
+                            <!-- text input -->
+                            <div class="form-group row">
+                                <label class="form-label">mins</label>
+                                <input type="number" class="form-control" asp-for="DurationMins" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card-footer-->
+                    <div class="card-footer float-right" style="background-color:transparent;">
+                        <a href="/Service/Index" class="link mr-3">Back</a>
+                        <button type="submit" class="btn btn-danger mr-3" onclick="return confirm('Are you sure you want to remove @Model?.Name?')">Delete</button>
+                        <a href="/Service/Update/@Model?.Id" class="btn btn-primary mr-5">Update</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

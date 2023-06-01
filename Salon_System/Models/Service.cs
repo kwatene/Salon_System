@@ -17,9 +17,12 @@ namespace Salon_System.Models
 
         [DisplayName("Charge"), Required(ErrorMessage = "This field is required")] public decimal? Charge { get; set; }
 
-        [DisplayName("Category")] public int? Category { get; set; }
+        [DisplayName("Category")] public int? CategoryId { get; set; }
 
-        //[DisplayName("Capable Staff"), Required(ErrorMessage = "This field is required")] public List<int>? CapableStaff { get; set; }
+        [DisplayName("Employee")] public int? EmployeeId { get; set; }
+
+        public string? CategoryName;
+        public string? EmployeeName;
 
         //[DisplayName("Age Restricted")] public int? AgeRestricted { get; set; } //AgeRestriction??
         //public ConsentForm ConsentForm { get; set; }

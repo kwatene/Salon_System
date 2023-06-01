@@ -28,9 +28,9 @@ namespace Salon_System.Controllers
 
             if (list != null)
             {
-                foreach (var service in list)
+                foreach (var service in list)                                                                 //Add Records to list
                 {
-                    var Service = new Service()
+                    var Service = new Service()                                                               //Get information from database
                     {
                         Id = service.Id,
                         Name = service.Name,
@@ -38,13 +38,12 @@ namespace Salon_System.Controllers
                         DurationHours = service.DurationHours,
                         DurationMins = service.DurationMins,
                         Charge = service.Charge,
-                        Category = service.Category
+                        CategoryId = service.CategoryId,
+                        EmployeeId = service.EmployeeId
                     };
-                    var record = _context.ServiceCategory.SingleOrDefault(x => x.Id == service.Category); //Find record in database by id
-                    ViewBag.Category = record?.Name;                                                      //Use category name in view
-                    serviceList.Add(Service);                                                             //Add record to list
+                    serviceList.Add(Service);                                                                   //Add record to list
                 }
-                return View(serviceList);                                                                 //Use list in view
+                return View(serviceList);                                                                       //Use list in view
             }
             return View(serviceList);
         }
@@ -70,7 +69,8 @@ namespace Salon_System.Controllers
                         DurationHours = record.DurationHours,
                         DurationMins = record.DurationMins,
                         Charge = record.Charge,
-                        Category = record.Category
+                        CategoryId = record.CategoryId,
+                        EmployeeId = record.EmployeeId
                     };
                     return View(service); //Display client details
                 }
@@ -146,7 +146,8 @@ namespace Salon_System.Controllers
                             DurationHours = service.DurationHours,
                             DurationMins = service.DurationMins,
                             Charge = service.Charge,
-                            Category = service.Category
+                            CategoryId = service.CategoryId,
+                            EmployeeId = service.EmployeeId
                         };
                         _context.Service.Add(service);                              //Add service record to database
                         _context.SaveChanges();                                     //Save changes made to database

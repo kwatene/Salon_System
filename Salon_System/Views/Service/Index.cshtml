@@ -59,8 +59,9 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                                     <td>@service.Name</td>
                                     <td>@service.Description</td>
                                     <td>@service.DurationHours hours @service.DurationMins mins</td>
-                                    <td>@service.Charge?.ToString("0.00")</td>
-                                    <td>@ViewBag.Category</td>
+                                    <td>$@service.Charge?.ToString("0.00")</td>
+                                    <td>@service.CategoryId</td>
+                                    <td>@service.EmployeeId</td>
                                 </tr>
                             }
                         }

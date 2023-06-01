@@ -46,13 +46,13 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <div class="form-group">
                                 <!-- Select multiple-->
                                 <label class="form-label">Category</label>
-                                <select class="form-control" asp-for="Category">
-                                    <option disabled selected>Select</option>
+                                <select class="form-control" asp-for="CategoryId">
+                                    <option disabled selected>Select Category</option>
                                     @foreach(var category in ViewBag.Categories)
                                     {
                                         <option value="@category.Id">@category.Name</option>
                                     }
-                                    <span asp-validation-for="Category" class="text-danger"></span>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                                 </select>
                             </div>
                         </div>
@@ -70,13 +70,14 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                         <div class="col-sm-5 ml-3">
                             <div class="form-group">
                                 <!-- Select multiple-->
-                                <!-- Fill options when Employee Class/Db configured-->
-                                <label>Select Staff</label>
-                                <select class="form-control selectEmp" multiple="multiple" data-placeholder="Select Employee" style="width: 100%;">
+                                <label class="form-label">Capable Staff</label>
+                                <select multiple class="form-control" asp-for="EmployeeId">
+                                    <option disabled selected>Select Capable Staff</option>
                                     @foreach (var emp in ViewBag.Employees)
                                     {
-                                        <option value="@emp.Id">@emp.FirstName @emp.LastName</option>
+                                        <option value="@emp.Id">@emp.FullName</option>
                                     }
+                                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
                                 </select>
                             </div>
                         </div>
@@ -87,7 +88,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <!-- text input -->
                             <div class="form-group">
                                 <label class="form-label">Charge</label>
-                                <input type="number" class="form-control" asp-for="Charge" step="0.01" placeholder="$0.00"/>
+                                <input type="number" class="form-control" asp-for="Charge" step="0.01" min="0" placeholder="$0.00"/>
                                 <span asp-validation-for="Charge" class="text-danger"></span>
                             </div>
                         </div>
@@ -95,7 +96,7 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <!-- text input -->
                             <div class="form-group row">
                                 <label class="form-label">hrs</label>
-                                <input type="number" class="form-control" asp-for="DurationHours" max="23" min="0" />
+                                <input type="number" class="form-control" asp-for="DurationHours" min="0" />
                                 <span asp-validation-for="DurationHours" class="text-danger"></span>
                             </div>
                         </div>

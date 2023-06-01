@@ -1,15 +1,134 @@
-﻿@{
-    ViewData["Title"] = "Update Service";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@model Salon_System.Models.Service
 
-<!--Update the Service
-    Name
-    Description
-    Fee
-    Duration
-    Age Restriction
-    Consent Form
-    Service Category
-    Employees who can perform the service
--->
+@{
+    ViewData["Title"] = "Edit Details";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successMessage"]?.ToString();
+    var sameStateMessage = TempData["sameStateMessage"]?.ToString();
+}
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <!--Displays a red banner with error message-->
+    <div class="alert alert-danger">
+        Error! @errorMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(successMessage))
+{
+
+    <!--Displays a green banner with success message-->
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
+{
+    <!--Displays a grey banner with same state message-->
+    <div class="alert alert-secondary">
+        @sameStateMessage
+    </div>
+}
+
+<!--Title-->
+<section class="content">
+    <div class="container pt-3">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h2 class="text-center">@ViewData["Title"]</h2>
+            </div>
+
+            <!-- form start/card body -->
+            <div class="card-body ml-5">
+                <form action="" method="post" autocomplete="off">
+                    <!--Row 1-->
+                    <div class="row pt-1">
+                        <div class="col-sm-5">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" asp-for="Name" placeholder="Enter Service Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 ml-3">
+                            <div class="form-group">
+                                <!-- Select multiple-->
+                                <label class="form-label">Category</label>
+                                <select class="form-control" asp-for="CategoryId">
+                                    <option disabled selected>Select Category</option>
+                                    @foreach (var category in ViewBag.Categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Row 2-->
+                    <div class="row pt-3">
+                        <div class="col-sm-5">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" rows="3" asp-for="Description" placeholder="Enter Service Description"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 ml-3">
+                            <div class="form-group">
+                                <!-- Select multiple-->
+                                <label class="form-label">Capable Staff</label>
+                                <select multiple class="form-control" asp-for="EmployeeId">
+                                    <option disabled selected>Select Capable Staff</option>
+                                    @foreach (var emp in ViewBag.Employees)
+                                    {
+                                        <option value="@emp.Id">@emp.FullName</option>
+                                    }
+                                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Row 2-->
+                    <div class="row pt-3">
+                        <div class="col-sm-2">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label class="form-label">Charge</label>
+                                <input type="number" class="form-control" asp-for="Charge" step="0.01" min="0" placeholder="$0.00" />
+                                <span asp-validation-for="Charge" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 ml-3">
+                            <!-- text input -->
+                            <div class="form-group row">
+                                <label class="form-label">hrs</label>
+                                <input type="number" class="form-control" asp-for="DurationHours" min="0" />
+                                <span asp-validation-for="DurationHours" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 ml=2">
+                            <!-- text input -->
+                            <div class="form-group row">
+                                <label class="form-label">mins</label>
+                                <input type="number" class="form-control" asp-for="DurationMins" max="59" min="0" />
+                                <span asp-validation-for="DurationMins" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card-footer -->
+                    <div class="card-footer float-right" style="background-color:transparent;">
+                        <a href="/Service/Index" class="link mr-3">Cancel</a>
+                        <button type="submit" class="btn btn-primary mr-5">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
