@@ -79,14 +79,14 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                             <div class="form-group">
                                 <!-- Select multiple-->
                                 <label class="form-label">Capable Staff</label>
-                                <select multiple class="form-control" asp-for="EmployeeId">
+                                <!--<select multiple class="form-control" asp-for="">
                                     <option disabled selected>Select Capable Staff</option>
                                     @foreach (var emp in ViewBag.Employees)
                                     {
                                         <option value="@emp.Id">@emp.FullName</option>
                                     }
                                     <span asp-validation-for="EmployeeId" class="text-danger"></span>
-                                </select>
+                                </select>-->
                             </div>
                         </div>
                     </div>

@@ -19,10 +19,9 @@ namespace Salon_System.Models
 
         [DisplayName("Category")] public int? CategoryId { get; set; }
 
-        [DisplayName("Employee")] public int? EmployeeId { get; set; }
-
         public string? CategoryName;
-        public string? EmployeeName;
+
+        public List<Employee>? CapableStaff { get; set; }
 
         //[DisplayName("Age Restricted")] public int? AgeRestricted { get; set; } //AgeRestriction??
         //public ConsentForm ConsentForm { get; set; }

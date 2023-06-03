@@ -1,5 +1,6 @@
 ﻿using Salon_System.Models;
 using Microsoft.EntityFrameworkCore;
+using Salon_System.Controllers.ViewModels;
 
 namespace Salon_System.Data
 {
@@ -21,6 +22,9 @@ namespace Salon_System.Data
 
         //Dataset for Service Category
         public DbSet<ServiceCategory> ServiceCategory { get; set; }
+
+        //Dataset for Composite Table ServiceEmployee
+        public DbSet<ServiceEmployee> ServiceEmployee { get; set; }
 
         //Dataset for Service Package
         //public DbSet<ServicePack> ServicePack { get; set; }

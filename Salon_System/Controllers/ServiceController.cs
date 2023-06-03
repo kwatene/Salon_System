@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.EntityFrameworkCore;
 using Salon_System.Data;
 using Salon_System.Models;
-using Salon_System.Models.ViewModels;
+using System.Linq.Expressions;
 
 namespace Salon_System.Controllers
 {
     public class ServiceController : Controller
     {
-        private readonly FeathertouchDbContext _context;
+        private readonly FeathertouchDbContext db;
 
         public ServiceController(FeathertouchDbContext context)
         {
-            this._context = context;
+            this.db = context;
         }
 
         //---------------------------------------------------------------------------------------------------------------
@@ -24,13 +24,13 @@ namespace Salon_System.Controllers
         public IActionResult Index()  //View list of Services (Main Services Page)
         {
             List<Service> serviceList = new();
-            var list = _context.Service.ToList();
+            var list = db.Service.ToList();     //Get records from Service Table in db
 
-            if (list != null)
+            if (list != null)                   //If records exist
             {
-                foreach (var service in list)                                                                 //Add Records to list
+                foreach (var service in list)        //Read each record in list
                 {
-                    var Service = new Service()                                                               //Get information from database
+                    var Service = new Service()      //Copy data from each record
                     {
                         Id = service.Id,
                         Name = service.Name,
@@ -38,14 +38,40 @@ namespace Salon_System.Controllers
                         DurationHours = service.DurationHours,
                         DurationMins = service.DurationMins,
                         Charge = service.Charge,
-                        CategoryId = service.CategoryId,
-                        EmployeeId = service.EmployeeId
+                        CategoryName = GetCategoryName(service.CategoryId)
                     };
-                    serviceList.Add(Service);                                                                   //Add record to list
+
+                    serviceList.Add(Service);        //Add record to servicelist
                 }
-                return View(serviceList);                                                                       //Use list in view
+                return View(serviceList);            //Use serviceList in view
             }
             return View(serviceList);
+        }
+
+        public string GetCategoryName(int? id)
+        {           
+            //Query db by Id to get the name of the Category
+            var catName = db.ServiceCategory.Where(c => c.Id == id).Select(c => c.Name).SingleOrDefault();
+           
+            if (catName != null) //if found
+            {                 
+                return catName; //return category name
+            }         
+            return ""; //Else return null
+        }
+
+        public string GetEmployees(int? id)
+        {
+            //Query db by Id to get the FirstName and LastName of the Employee
+            var emp = db.Employee.Where(e => e.Id == id).Select(e => new {e.FirstName, e.LastName }).SingleOrDefault();
+
+            if (emp != null) //if found
+            {
+                string? FirstName = emp.FirstName;
+                string? LastName = emp.LastName;
+                return FirstName + " " + LastName; //return full name of employee
+            }
+            return ""; //else return null
         }
 
         //---------------------------------------------------------------------------------------------------------------
@@ -57,7 +83,7 @@ namespace Salon_System.Controllers
         {
             try
             {
-                var record = _context.Service.SingleOrDefault(x => x.Id == id); //Find client record in database by id
+                var record = db.Service.SingleOrDefault(x => x.Id == id); //Find client record in database by id
 
                 if (record != null) //if found
                 {
@@ -69,8 +95,7 @@ namespace Salon_System.Controllers
                         DurationHours = record.DurationHours,
                         DurationMins = record.DurationMins,
                         Charge = record.Charge,
-                        CategoryId = record.CategoryId,
-                        EmployeeId = record.EmployeeId
+                        CategoryName = GetCategoryName(record.CategoryId)
                     };
                     return View(service); //Display client details
                 }
@@ -93,12 +118,12 @@ namespace Salon_System.Controllers
 
 
         [HttpGet]
-        public dynamic Create() //Display the Service/Create View
+        public IActionResult Create() //Display the Service/Create View
         {
             List<ServiceCategory> categoryList = new();
             List<Employee> employeeList = new();
-            var categories = _context.ServiceCategory.ToList();
-            var employees = _context.Employee.ToList();
+            var categories = db.ServiceCategory.ToList();
+            var employees = db.Employee.ToList();
 
             if (categories != null) //Select Category for Service
             {
@@ -146,11 +171,10 @@ namespace Salon_System.Controllers
                             DurationHours = service.DurationHours,
                             DurationMins = service.DurationMins,
                             Charge = service.Charge,
-                            CategoryId = service.CategoryId,
-                            EmployeeId = service.EmployeeId
+                            CategoryId = service.CategoryId
                         };
-                        _context.Service.Add(service);                              //Add service record to database
-                        _context.SaveChanges();                                     //Save changes made to database
+                        db.Service.Add(newService);                              //Add service record to database
+                        db.SaveChanges();                                     //Save changes made to database
                         TempData["successMessage"] = "New Client Added";            //Display success message
                         return RedirectToAction("Index");                           //Redirect user to Service list
                 }

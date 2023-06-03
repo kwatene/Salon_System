@@ -71,18 +71,16 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <div class="form-group">
                                 <!-- Select multiple-->
                                 <label class="form-label">Capable Staff</label>
-                                <select multiple class="form-control" asp-for="EmployeeId">
-                                    <option disabled selected>Select Capable Staff</option>
-                                    @foreach (var emp in ViewBag.Employees)
+                                <select class="form-control" multiple="multiple" placeholder="Click to Select">
+                                    @foreach(var emp in ViewBag.Employees)
                                     {
                                         <option value="@emp.Id">@emp.FullName</option>
                                     }
-                                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <!--Row 2-->
+                    <!--Row 3-->
                     <div class="row pt-3">
                         <div class="col-sm-2">
                             <!-- text input -->
@@ -119,6 +117,9 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
         </div>
     </div>
 </section>
+
+<script src="~/script/selectMultiple.js"></script>
+
 @section Scripts{
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

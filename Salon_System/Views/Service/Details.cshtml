@@ -51,7 +51,7 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                             <div class="form-group">
                                 <!-- Select multiple-->
                                 <label class="form-label">Category</label>
-                                <input type="text" class="form-control" asp-for="CategoryId" readonly />
+                                <input type="text" class="form-control" asp-for="CategoryName" readonly />
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                             <div class="form-group">
                                 <!-- Select multiple-->
                                 <label class="form-label">Capable Staff</label>
-                                <input type="text" class="form-control" asp-for="EmployeeId" readonly />
+                                <input type="text" class="form-control" readonly />
                             </div>
                         </div>
                     </div>
@@ -81,17 +81,17 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
                                 <input type="number" class="form-control" asp-for="Charge" readonly />
                             </div>
                         </div>
-                        <div class="col-sm-1 ml-3">
+                        <div class="col-1 ml-3">
                             <!-- text input -->
+                            <label class="form-label">Hrs</label>
                             <div class="form-group row">
-                                <label class="form-label">hrs</label>
                                 <input type="number" class="form-control" asp-for="DurationHours" readonly />
                             </div>
                         </div>
-                        <div class="col-sm-1 ml=2">
+                        <div class="col-1 ml=2">
                             <!-- text input -->
+                            <label class="form-label">Mins</label>
                             <div class="form-group row">
-                                <label class="form-label">mins</label>
                                 <input type="number" class="form-control" asp-for="DurationMins" readonly />
                             </div>
                         </div>
