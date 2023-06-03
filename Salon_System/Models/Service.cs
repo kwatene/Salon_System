@@ -5,6 +5,7 @@ namespace Salon_System.Models
 {
     public class Service
     {
+        [Key]
         public int Id { get; set; }
 
         [DisplayName("Name"), Required(ErrorMessage = "This field is required")] public string? Name { get; set; }

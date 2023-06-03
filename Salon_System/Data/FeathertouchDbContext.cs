@@ -26,6 +26,11 @@ namespace Salon_System.Data
         //Dataset for Composite Table ServiceEmployee
         public DbSet<ServiceEmployee> ServiceEmployee { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ServiceEmployee>().HasKey(se => new {se.ServiceId, se.EmployeeId});
+        }
+
         //Dataset for Service Package
         //public DbSet<ServicePack> ServicePack { get; set; }
     }

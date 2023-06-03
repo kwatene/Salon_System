@@ -38,7 +38,7 @@ namespace Salon_System.Controllers
                         DurationHours = service.DurationHours,
                         DurationMins = service.DurationMins,
                         Charge = service.Charge,
-                        CategoryName = GetCategoryName(service.CategoryId)
+                        CategoryName = "Yes"
                     };
 
                     serviceList.Add(Service);        //Add record to servicelist
@@ -48,7 +48,7 @@ namespace Salon_System.Controllers
             return View(serviceList);
         }
 
-        public string GetCategoryName(int? id)
+        /*public string GetCategoryName(int? id)
         {           
             //Query db by Id to get the name of the Category
             var catName = db.ServiceCategory.Where(c => c.Id == id).Select(c => c.Name).SingleOrDefault();
@@ -63,7 +63,7 @@ namespace Salon_System.Controllers
         public string GetEmployees(int? id)
         {
             //Query db by Id to get the FirstName and LastName of the Employee
-            var emp = db.Employee.Where(e => e.Id == id).Select(e => new {e.FirstName, e.LastName }).SingleOrDefault();
+            var emp = db.Service.Employee.Where(se => se.EmployeeId == id).Select(e => new {e.FirstName, e.LastName }).SingleOrDefault();
 
             if (emp != null) //if found
             {
@@ -72,7 +72,7 @@ namespace Salon_System.Controllers
                 return FirstName + " " + LastName; //return full name of employee
             }
             return ""; //else return null
-        }
+        }*/
 
         //---------------------------------------------------------------------------------------------------------------
         //VIEW SELECTED CLIENT
@@ -95,7 +95,7 @@ namespace Salon_System.Controllers
                         DurationHours = record.DurationHours,
                         DurationMins = record.DurationMins,
                         Charge = record.Charge,
-                        CategoryName = GetCategoryName(record.CategoryId)
+                        CategoryName = "Yes"
                     };
                     return View(service); //Display client details
                 }
