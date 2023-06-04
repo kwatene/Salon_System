@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.EntityFrameworkCore;
+using Salon_System.Controllers.ViewModels;
 using Salon_System.Data;
 using Salon_System.Models;
 using System.Linq.Expressions;
@@ -17,20 +18,20 @@ namespace Salon_System.Controllers
         }
 
         //---------------------------------------------------------------------------------------------------------------
-        //VIEW ALL CLIENTS
+        //VIEW ALL SERVICES
         //---------------------------------------------------------------------------------------------------------------
 
         [HttpGet]
-        public IActionResult Index()  //View list of Services (Main Services Page)
+        public IActionResult Index()                 //View list of Services
         {
             List<Service> serviceList = new();
-            var list = db.Service.ToList();     //Get records from Service Table in db
+            var list = db.Service.ToList();          //Get records from Service Table in db
 
-            if (list != null)                   //If records exist
+            if (list != null)                        //If records exist
             {
                 foreach (var service in list)        //Read each record in list
                 {
-                    var Service = new Service()      //Copy data from each record
+                    var Service = new Service()
                     {
                         Id = service.Id,
                         Name = service.Name,
@@ -38,71 +39,56 @@ namespace Salon_System.Controllers
                         DurationHours = service.DurationHours,
                         DurationMins = service.DurationMins,
                         Charge = service.Charge,
-                        CategoryName = "Yes"
+                        CategoryName = GetCategoryName(service.CategoryId)
                     };
-
-                    serviceList.Add(Service);        //Add record to servicelist
+                    serviceList.Add(Service);
                 }
-                return View(serviceList);            //Use serviceList in view
+                return View(serviceList);            //Display serviceList in view
             }
             return View(serviceList);
         }
 
-        /*public string GetCategoryName(int? id)
-        {           
-            //Query db by Id to get the name of the Category
-            var catName = db.ServiceCategory.Where(c => c.Id == id).Select(c => c.Name).SingleOrDefault();
-           
-            if (catName != null) //if found
-            {                 
-                return catName; //return category name
-            }         
-            return ""; //Else return null
-        }
-
-        public string GetEmployees(int? id)
+        /*public string GetEmployees(int? id)         //Get names of Employees associated with the service to display
         {
-            //Query db by Id to get the FirstName and LastName of the Employee
-            var emp = db.Service.Employee.Where(se => se.EmployeeId == id).Select(e => new {e.FirstName, e.LastName }).SingleOrDefault();
+                                                    //Query db to get the FirstName and LastName of the Employee
+            var emp = db.Employee.Where(e => e.Id == id).Select(e => new {e.FirstName, e.LastName }).SingleOrDefault();
 
             if (emp != null) //if found
             {
-                string? FirstName = emp.FirstName;
-                string? LastName = emp.LastName;
-                return FirstName + " " + LastName; //return full name of employee
+                return emp.FirstName + " " + emp.LastName; //return full name of employee
             }
             return ""; //else return null
         }*/
 
         //---------------------------------------------------------------------------------------------------------------
-        //VIEW SELECTED CLIENT
+        //VIEW SELECTED SERVICE
         //---------------------------------------------------------------------------------------------------------------
 
         [HttpGet]
-        public IActionResult Details(int id) //Display the selected clients details
+        public IActionResult Details(int id)                              //Display the selected clients details
         {
             try
             {
-                var record = db.Service.SingleOrDefault(x => x.Id == id); //Find client record in database by id
+                var service = db.Service.SingleOrDefault(x => x.Id == id); //Find client in db
 
-                if (record != null) //if found
+                if (service != null)                                       //if found
                 {
-                    var service = new Service() //Add details to client object
+                    var Service = new Service()                           //Get client details
                     {
-                        Id = record.Id,
-                        Name = record.Name,
-                        Description = record.Description,
-                        DurationHours = record.DurationHours,
-                        DurationMins = record.DurationMins,
-                        Charge = record.Charge,
-                        CategoryName = "Yes"
+                        Id = service.Id,
+                        Name = service.Name,
+                        Description = service.Description,
+                        DurationHours = service.DurationHours,
+                        DurationMins = service.DurationMins,
+                        Charge = service.Charge,
+                        CategoryName = GetCategoryName(service.CategoryId)
                     };
-                    return View(service); //Display client details
+                    return View(Service);                                 //Display client details
                 }
                 else
                 {
                     TempData["errorMessage"] = $"Service details are not available with ID: {id}"; //If not found - Display message
-                    return RedirectToAction("Index"); //Redirect to Client list
+                    return RedirectToAction("Index");                     //Redirect to Client list
                 }
             }
             catch (Exception ex)
@@ -118,16 +104,14 @@ namespace Salon_System.Controllers
 
 
         [HttpGet]
-        public IActionResult Create() //Display the Service/Create View
+        public IActionResult Create()                                   //Display the Service/Create View/Form
         {
             List<ServiceCategory> categoryList = new();
-            List<Employee> employeeList = new();
-            var categories = db.ServiceCategory.ToList();
-            var employees = db.Employee.ToList();
+            var category = db.ServiceCategory.ToList();
 
-            if (categories != null) //Select Category for Service
+            if (category != null)                                     //Display the Categories for user to select
             {
-                foreach (var c in categories)
+                foreach (var c in category)
                 {
                     var Category = new ServiceCategory()
                     {
@@ -139,7 +123,7 @@ namespace Salon_System.Controllers
                 ViewBag.Categories = categoryList;
             }
 
-            if(employees != null) //Select Capable staff for Service
+            /*if(employees != null) //Select Capable staff for Service
             {
                 foreach (var e in employees)
                 {
@@ -152,36 +136,50 @@ namespace Salon_System.Controllers
                     employeeList.Add(Employee);
                 }
                 ViewBag.Employees = employeeList;
-            }
+            }*/
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Service service) //Creates and saves a new Service in the system
+        public IActionResult Create(Service service, int[]EmployeeIds)   //Retrieve form details to create and save a new Service in the system
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                        var newService = new Service() //If valid, add input to Service object
-                        {
-                            Name = service.Name,
-                            Description = service.Description,
-                            DurationHours = service.DurationHours,
-                            DurationMins = service.DurationMins,
-                            Charge = service.Charge,
-                            CategoryId = service.CategoryId
+                    var Service = new Service()                          //Add service record to database
+                    {
+                        Name = service.Name,
+                        Description = service.Description,
+                        DurationHours = service.DurationHours,
+                        DurationMins = service.DurationMins,
+                        Charge = service.Charge,
+                        CategoryId = service.CategoryId
+                    };
+                    db.Service.Add(Service);
+                    db.SaveChanges();                                     //Save changes made to Service Table
+
+                    foreach (var empId in EmployeeIds)                    //Associate employees with the Service
+                    {                                                    
+                        var Employee = new ServiceEmployee()
+                        { 
+                            ServiceId = service.Id,
+                            EmployeeId = empId
                         };
-                        db.Service.Add(newService);                              //Add service record to database
-                        db.SaveChanges();                                     //Save changes made to database
-                        TempData["successMessage"] = "New Client Added";            //Display success message
-                        return RedirectToAction("Index");                           //Redirect user to Service list
+                        db.ServiceEmployee.Add(Employee);
+                        db.SaveChanges();                                    //Save changes made to ServiceEmployee composite table
+                    }
+
+                    TempData["successMessage"] = "Added new Service: " + service.Name;      //Display success message
+
+                    return RedirectToAction("Index");                                       //Redirect user to Service list
                 }
                 else
                 {
-                    TempData["errorMessage"] = "Invalid form"; //If form invalid show error message
-                    return View();
+                    ViewBag.Employees = db.Employee.ToList();
+                    TempData["errorMessage"] = "Invalid form";           //If form invalid show error message
+                    return View(service);
                 }
             }
             catch (Exception ex)
@@ -205,9 +203,17 @@ namespace Salon_System.Controllers
         {
             return View();
         }
-        public IActionResult AddEmployee()
+
+        public string GetCategoryName(int? id)      //Get name of category to display
         {
-            return View();
+            //Query db to get category name
+            var catName = db.ServiceCategory.Where(c => c.Id == id).Select(c => c.Name).SingleOrDefault();
+
+            if (catName != null)                    //if found
+            {
+                return catName;                     //return category name
+            }
+            return "Not found";                     //Else not found
         }
     }
 }

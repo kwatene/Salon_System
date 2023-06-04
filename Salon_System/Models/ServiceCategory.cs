@@ -10,5 +10,12 @@ namespace Salon_System.Models
         [DisplayName("Name"), Required(ErrorMessage = "This field is required")] public string? Name { get; set; }
 
         public ServiceCategory() { }
+
+        //Consructor to display category names
+        public ServiceCategory(int id, string name) 
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }

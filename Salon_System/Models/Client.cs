@@ -6,7 +6,6 @@ namespace Salon_System.Models
     {
         public new int Id { get; set; }
 
-
         //Parameterless Constructor
         public Client() { }
 

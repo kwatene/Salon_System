@@ -28,7 +28,19 @@ namespace Salon_System.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ServiceEmployee>().HasKey(se => new {se.ServiceId, se.EmployeeId});
+            modelBuilder.Entity<Service>()
+                .HasKey(s => s.Id);
+
+            modelBuilder.Entity<Employee>()
+                .HasKey(e => e.Id);
+
+            modelBuilder.Entity<ServiceEmployee>()
+                .HasKey(se => new {se.ServiceId, se.EmployeeId});
+
+            /*modelBuilder.Entity<ServiceEmployee>()
+                .HasOne(se => se.Employee)
+                .WithMany(e => e.ServiceId)
+                .HasForeignKey(se => se.EmployeeId);*/
         }
 
         //Dataset for Service Package

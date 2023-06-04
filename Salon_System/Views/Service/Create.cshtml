@@ -48,9 +48,9 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                                 <label class="form-label">Category</label>
                                 <select class="form-control" asp-for="CategoryId">
                                     <option disabled selected>Select Category</option>
-                                    @foreach(var category in ViewBag.Categories)
+                                    @foreach(var c in ViewBag.Categories)
                                     {
-                                        <option value="@category.Id">@category.Name</option>
+                                        <option value="@c.Id">@c.Name</option>
                                     }
                                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                                 </select>
@@ -71,11 +71,9 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <div class="form-group">
                                 <!-- Select multiple-->
                                 <label class="form-label">Capable Staff</label>
-                                <select class="form-control" multiple="multiple" placeholder="Click to Select">
-                                    @foreach(var emp in ViewBag.Employees)
-                                    {
-                                        <option value="@emp.Id">@emp.FullName</option>
-                                    }
+                                <select class="form-control" multiple="multiple" name="EmployeeIds[]">
+                                    <option value="1">Kimmi Eru</option>
+                                    <option value="2">Bonnie Nicholas</option>
                                 </select>
                             </div>
                         </div>

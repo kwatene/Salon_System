@@ -5,8 +5,7 @@ namespace Salon_System.Models
 {
     public class Service
     {
-        [Key]
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
 
         [DisplayName("Name"), Required(ErrorMessage = "This field is required")] public string? Name { get; set; }
 
@@ -22,12 +21,14 @@ namespace Salon_System.Models
 
         public string? CategoryName;
 
-        public List<Employee>? CapableStaff { get; set; }
+        public List<Employee> CapableStaff = new();
 
         //[DisplayName("Age Restricted")] public int? AgeRestricted { get; set; } //AgeRestriction??
         //public ConsentForm ConsentForm { get; set; }
 
         //Parameterless Constructor
-        public Service() { }
+        public Service() 
+        {
+        }
     }
 }

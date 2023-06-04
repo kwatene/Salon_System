@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Salon_System.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Salon_System.Controllers.ViewModels
 {
