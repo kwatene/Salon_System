@@ -43,7 +43,7 @@ namespace Salon_System.Controllers
                         CategoryName = GetCategoryName(service.CategoryId)
                     };
 
-                    ViewBag.Employees = GetCapableStaff(service.Id);
+                    ViewBag.Employees = GetCapableStaff(Service.Id);
                     serviceList.Add(Service);
                 }
                 return View(serviceList);            //Display serviceList in view
