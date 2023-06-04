@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Salon_System.Controllers.ViewModels;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Salon_System.Models
@@ -21,7 +22,6 @@ namespace Salon_System.Models
 
         public string? CategoryName;
 
-        public List<Employee> CapableStaff = new();
 
         //[DisplayName("Age Restricted")] public int? AgeRestricted { get; set; } //AgeRestriction??
         //public ConsentForm ConsentForm { get; set; }

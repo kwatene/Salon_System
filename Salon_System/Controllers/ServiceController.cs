@@ -31,6 +31,7 @@ namespace Salon_System.Controllers
             {
                 foreach (var service in list)        //Read each record in list
                 {
+
                     var Service = new Service()
                     {
                         Id = service.Id,
@@ -41,6 +42,8 @@ namespace Salon_System.Controllers
                         Charge = service.Charge,
                         CategoryName = GetCategoryName(service.CategoryId)
                     };
+
+                    ViewBag.Employees = GetCapableStaff(service.Id);
                     serviceList.Add(Service);
                 }
                 return View(serviceList);            //Display serviceList in view
@@ -48,17 +51,21 @@ namespace Salon_System.Controllers
             return View(serviceList);
         }
 
-        /*public string GetEmployees(int? id)         //Get names of Employees associated with the service to display
+        public List<String>? GetCapableStaff(int? id)         //Get names of Employees associated with the service to display
         {
-                                                    //Query db to get the FirstName and LastName of the Employee
-            var emp = db.Employee.Where(e => e.Id == id).Select(e => new {e.FirstName, e.LastName }).SingleOrDefault();
+            //Query db to get the FirstName and LastName of the Employee
+            var Employee = db.ServiceEmployee.Where(se => se.ServiceId == id)
+                         .Join(db.Employee,
+                             se => se.EmployeeId,
+                             e => e.Id,
+                             (se, e) => e.FirstName + " " + e.LastName).ToList();
 
-            if (emp != null) //if found
+            if (Employee != null)
             {
-                return emp.FirstName + " " + emp.LastName; //return full name of employee
+                return Employee;            //Return List of Names
             }
-            return ""; //else return null
-        }*/
+            return null;
+        }
 
         //---------------------------------------------------------------------------------------------------------------
         //VIEW SELECTED SERVICE

@@ -61,6 +61,12 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                                     <td>@service.DurationHours hours @service.DurationMins mins</td>
                                     <td>$@service.Charge?.ToString("0.00")</td>
                                     <td>@service.CategoryName</td>
+                                    <td>
+                                        @foreach( var emp in ViewBag.Employees)
+                                        {
+                                            @emp.ToString()
+                                        }
+                                    </td>
                                 </tr>
                             }
                         }
