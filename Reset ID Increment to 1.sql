@@ -1,5 +1,17 @@
-﻿Delete Customer;
-DBCC CHECKIDENT ('Customer',RESEED,0);
-Insert into Customer(FirstName,LastName,Gender,DateOfBirth,Email,Phone,Address)
-Values('Kim','Watene','Female','1988-10-17','kimwatene@gmail.com','0212476946','Wainuiomata');
-Select * from Customer;
+﻿Delete from ServiceCategory;
+
+DBCC CHECKIDENT ('ServiceCategory',RESEED,0);
+
+Insert into ServiceCategory(Name)
+Values('Brow, Lips, Eyeliner');
+
+Insert into ServiceCategory(Name)
+Values('Waxing and Threading');
+
+Insert into ServiceCategory(Name)
+Values('Ear Piercing');
+
+Insert into ServiceCategory(Name)
+Values('IPL Hair Removal');
+
+Select * from ServiceCategory;

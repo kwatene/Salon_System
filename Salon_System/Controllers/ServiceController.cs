@@ -58,7 +58,7 @@ namespace Salon_System.Controllers
                          .Join(db.Employee,
                              se => se.EmployeeId,
                              e => e.Id,
-                             (se, e) => e.FirstName + " " + e.LastName).ToList();
+                             (se, e) => e.FirstName + " " + e.LastName + " ").ToList();
 
             if (Employee != null)
             {
