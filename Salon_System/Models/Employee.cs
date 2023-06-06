@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Salon_System.Controllers.ViewModels;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Salon_System.Models
@@ -9,6 +10,7 @@ namespace Salon_System.Models
         [DisplayName("Job Title"), Required(ErrorMessage = "This field is required")] public string? JobTitle { get; set; } //Employee needs a list of jobs??
         [DisplayName("Job Description")] public string? JobDesc { get; set; }
         [DisplayName("Hire Date")] public DateTime? HireDate { get; set; }
+        public ICollection<ServiceEmployee>? Services { get; set; }
 
 
         //Parameterless Constructor

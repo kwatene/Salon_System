@@ -40,31 +40,15 @@ namespace Salon_System.Controllers
                         DurationHours = service.DurationHours,
                         DurationMins = service.DurationMins,
                         Charge = service.Charge,
-                        CategoryName = GetCategoryName(service.CategoryId)
+                        CategoryName = GetCategoryName(service.CategoryId),
+                        EmployeeNames = GetCapableStaff(service.Id)
                     };
 
-                    ViewBag.Employees = GetCapableStaff(Service.Id);
                     serviceList.Add(Service);
                 }
                 return View(serviceList);            //Display serviceList in view
             }
             return View(serviceList);
-        }
-
-        public List<String>? GetCapableStaff(int? id)         //Get names of Employees associated with the service to display
-        {
-            //Query db to get the FirstName and LastName of the Employee
-            var Employee = db.ServiceEmployee.Where(se => se.ServiceId == id)
-                         .Join(db.Employee,
-                             se => se.EmployeeId,
-                             e => e.Id,
-                             (se, e) => e.FirstName + " " + e.LastName + " ").ToList();
-
-            if (Employee != null)
-            {
-                return Employee;            //Return List of Names
-            }
-            return null;
         }
 
         //---------------------------------------------------------------------------------------------------------------
@@ -211,6 +195,10 @@ namespace Salon_System.Controllers
             return View();
         }
 
+        //---------------------------------------------------------------------------------------------------------------
+        //GET METHODS
+        //---------------------------------------------------------------------------------------------------------------
+
         public string GetCategoryName(int? id)      //Get name of category to display
         {
             //Query db to get category name
@@ -221,6 +209,33 @@ namespace Salon_System.Controllers
                 return catName;                     //return category name
             }
             return "Not found";                     //Else not found
+        }
+
+        public List<String>? GetCapableStaff(int? id)         //Get names of Employees associated with the service to display
+        {
+            //Query db to get all records associated to ServiceId
+            var serviceEmployee = db.ServiceEmployee.Where(se => se.ServiceId == id).ToList();
+            List<String> employees = new();                   //List to return employees names only
+
+            if (serviceEmployee != null)                       //If records exist
+            {
+                foreach (var s in serviceEmployee)            //Read each record
+                {                                             //Query db to get the Employee by Id
+                    var emp = db.Employee.Where(e => e.Id == s.EmployeeId).FirstOrDefault();
+
+                    if (emp != null)                          //If found
+                    {                                         //Add name to list
+                        employees.Add(emp.FirstName + " " + emp.LastName + "   ");
+                    }
+                }
+                return employees;                             //return list
+            }
+            else
+            {
+                employees.Add("No Employees");                //Else no employees
+            }
+
+            return employees;                                 //Return list
         }
     }
 }

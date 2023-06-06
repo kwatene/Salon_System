@@ -22,13 +22,27 @@ namespace Salon_System.Models
 
         public string? CategoryName;
 
+        public List<String>? EmployeeNames = new();
+
+        public ICollection<ServiceEmployee>? Employees { get; set; }
+
 
         //[DisplayName("Age Restricted")] public int? AgeRestricted { get; set; } //AgeRestriction??
         //public ConsentForm ConsentForm { get; set; }
 
         //Parameterless Constructor
-        public Service() 
+        public Service(int id, string name, string desc, int dh, int dm, decimal charge, int cId, List<String> empNames)
         {
+            Id = id;
+            Name = name;
+            Description = desc;
+            DurationHours = dh;
+            DurationMins = dm;
+            Charge = charge;
+            CategoryId = cId;
+            EmployeeNames = empNames;
         }
+
+        public Service() { }
     }
 }

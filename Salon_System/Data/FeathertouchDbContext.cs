@@ -37,10 +37,15 @@ namespace Salon_System.Data
             modelBuilder.Entity<ServiceEmployee>()
                 .HasKey(se => new {se.ServiceId, se.EmployeeId});
 
-            /*modelBuilder.Entity<ServiceEmployee>()
+            modelBuilder.Entity<ServiceEmployee>()
+                .HasOne(se => se.Service)
+                .WithMany(e => e.Employees)
+                .HasForeignKey(se => se.ServiceId);
+
+            modelBuilder.Entity<ServiceEmployee>()
                 .HasOne(se => se.Employee)
-                .WithMany(e => e.ServiceId)
-                .HasForeignKey(se => se.EmployeeId);*/
+                .WithMany(e => e.Services)
+                .HasForeignKey(se => se.EmployeeId);
         }
 
         //Dataset for Service Package
