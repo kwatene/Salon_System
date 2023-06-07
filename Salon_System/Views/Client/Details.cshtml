@@ -106,9 +106,9 @@ else @if (!string.IsNullOrWhiteSpace(sameStateMessage))
 
                 <!-- card-footer-->
                 <div class="card-footer float-right" style="background-color:transparent;">
-                    <a href="/Client/Index" class="link mr-3">Back</a>
-                    <button type="submit" class="btn btn-danger mr-3" onclick="return confirm('Are you sure you want to remove @Model?.FullName?')">Delete</button>
-                    <a href="/Client/Update/@Model?.Id" class="btn btn-primary mr-5">Update</a>
+                    <a id="liBackCli" href="/Client/Index" class="link mr-3">Back</a>
+                    <button id="btnDeleteCli" type="submit" class="btn btn-danger mr-3" onclick="return confirm('Are you sure you want to remove @Model?.FullName?')">Delete</button>
+                    <a id="btnUpdateCli"href="/Client/Update/@Model?.Id" class="btn btn-primary mr-5">Update</a>
                 </div>
             </div>
         </form>

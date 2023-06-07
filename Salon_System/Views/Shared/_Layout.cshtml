@@ -9,12 +9,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/css/adminlte.min.css">
     <link rel="stylesheet" href="~/css/style.css" />
     <!-- Select 2 -->
     <link rel="stylesheet" href="~/css/select2.css" />
     <link rel="stylesheet" href="~/css/select2.min.css" />
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="~/plugins/fullcalendar/main.css">
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -59,7 +63,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <a href="#" class="elements nav-link">
+                            <a href="/Home/Index" class="elements nav-link">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Home
@@ -67,7 +71,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="elements nav-link">
+                            <a href="/Calendar/Index" class="elements nav-link">
                                 <i class="nav-icon fas fa-calendar"></i>
                                 <p>
                                     Calendar
@@ -75,7 +79,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="elements nav-link">
+                            <a href="/Booking/Index" class="elements nav-link">
                                 <i class="nav-icon fas fa-calendar-plus"></i>
                                 <p>
                                     Bookings
@@ -83,7 +87,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="elements nav-link">
+                            <a href="/Profile/Index" class="elements nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Profile
@@ -124,12 +128,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="/ServiceCategory/Index" class="nav-link">
                                         <p>Service Category</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="/ServicePackage/Index" class="nav-link">
                                         <p>Service Package</p>
                                     </a>
                                 </li>
@@ -210,6 +214,8 @@
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Bootstrap-->
     <script src="~/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
@@ -219,6 +225,11 @@
     <script src="~/js/custom.js"></script>
     <!-- Select 2-->
     <script src="~/js/select2.min.js"></script>
+    <!-- fullCalendar 2.2.5 -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script src="~/plugins/fullcalendar/main.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/js/demo.js"></script>
 
     <!--Page specific script-->
     <script>

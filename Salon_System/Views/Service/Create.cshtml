@@ -48,9 +48,12 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                                 <label class="form-label">Category</label>
                                 <select class="form-control" asp-for="CategoryId">
                                     <option disabled selected>Select Category</option>
-                                    @foreach(var c in ViewBag.Categories)
+                                    @if (ViewBag.categories != null)
                                     {
-                                        <option value="@c.Id">@c.Name</option>
+                                        @foreach (var c in @ViewBag.Categories)
+                                        {
+                                            <option value="@c.Id">@c.Name</option>
+                                        }
                                     }
                                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                                 </select>
@@ -71,10 +74,16 @@ else @if (!string.IsNullOrWhiteSpace(successMessage))
                             <div class="form-group">
                                 <!-- Select multiple-->
                                 <label class="form-label">Capable Staff</label>
-                                <select class="form-control" multiple="multiple" name="EmployeeIds[]">
-                                    <option value="1">Kimmi Eru</option>
-                                    <option value="2">Bonnie Nicholas</option>
+                                <select class="form-control" multiple="multiple" name="EmployeeIds" id="Employees">
+                                    @if(ViewBag.Employees != null)
+                                    {
+                                        @foreach (var e in @ViewBag.Employees)
+                                        {
+                                            <option value="@e.Id">@e.FirstName @e.LastName</option>
+                                        }
+                                    }
                                 </select>
+                                <span asp-validation-for="EmployeeIds" class="text-danger"></span>
                             </div>
                         </div>
                     </div>

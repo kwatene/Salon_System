@@ -95,45 +95,17 @@ namespace Salon_System.Controllers
 
 
         [HttpGet]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Create()                                   //Display the Service/Create View/Form
         {
-            List<ServiceCategory> categoryList = new();
-            var category = db.ServiceCategory.ToList();
-
-            if (category != null)                                     //Display the Categories for user to select
-            {
-                foreach (var c in category)
-                {
-                    var Category = new ServiceCategory()
-                    {
-                        Id = c.Id,
-                        Name = c.Name
-                    };
-                    categoryList.Add(Category);
-                }
-                ViewBag.Categories = categoryList;
-            }
-
-            /*if(employees != null) //Select Capable staff for Service
-            {
-                foreach (var e in employees)
-                {
-                    var Employee = new Employee()
-                    {
-                        Id = e.Id,
-                        FirstName = e.FirstName,
-                        LastName = e.LastName
-                    };
-                    employeeList.Add(Employee);
-                }
-                ViewBag.Employees = employeeList;
-            }*/
+            DisplayAllCategories();
+            DisplayAllEmployees();
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Service service, int[]EmployeeIds)   //Retrieve form details to create and save a new Service in the system
+        public IActionResult Create(Service service)   //Retrieve form details to create and save a new Service in the system
         {
             try
             {
@@ -151,30 +123,50 @@ namespace Salon_System.Controllers
                     db.Service.Add(Service);
                     db.SaveChanges();                                     //Save changes made to Service Table
 
-                    foreach (var empId in EmployeeIds)                    //Associate employees with the Service
-                    {                                                    
-                        var Employee = new ServiceEmployee()
-                        { 
-                            ServiceId = service.Id,
-                            EmployeeId = empId
-                        };
-                        db.ServiceEmployee.Add(Employee);
-                        db.SaveChanges();                                    //Save changes made to ServiceEmployee composite table
-                    }
+                    if (service.EmployeeIds != null)
+                    {
+                        var temp = db.Service.Where(s => s.Name == service.Name).SingleOrDefault();  //Get Service Id
+                        
+                        if((temp != null) && (service.Name != null) && (service.Name.Equals(temp.Name)))                                                     
+                        {
+                            foreach (var employeeId in service.EmployeeIds)                    //Loop through employee Ids
+                            {
+                                var serviceEmployee = new ServiceEmployee()                    //associate each employee with service
+                                {
+                                    ServiceId = temp.Id,
+                                    EmployeeId = employeeId
+                                };
+                                db.ServiceEmployee.Add(serviceEmployee);
+                                db.SaveChanges();
+                            }
 
-                    TempData["successMessage"] = "Added new Service: " + service.Name;      //Display success message
+                            TempData["successMessage"] = "Added new Service: " + service.Name;      //Display success message
+                        }
+                        else
+                        {
+                            TempData["successMessage"] = "Added new Service: " + service.Name + "serviceId not found";      //Display message with no Employees
+                        }
+                    }
+                    else
+                    {
+                        TempData["successMessage"] = "Added new Service: " + service.Name + "No employees";      //Display message with no Employees
+                    }
 
                     return RedirectToAction("Index");                                       //Redirect user to Service list
                 }
                 else
                 {
-                    ViewBag.Employees = db.Employee.ToList();
-                    TempData["errorMessage"] = "Invalid form";           //If form invalid show error message
+
+                    DisplayAllCategories(); 
+                    DisplayAllEmployees();
+                    TempData["errorMessage"] = "Invalid form";                              //If form invalid show error message
                     return View(service);
                 }
             }
             catch (Exception ex)
             {
+                DisplayAllCategories();
+                DisplayAllEmployees();
                 TempData["errorMessage"] = ex.Message;
                 return View();
             }
@@ -236,6 +228,49 @@ namespace Salon_System.Controllers
             }
 
             return employees;                                 //Return list
+        }
+
+        public void DisplayAllCategories()                     //Display the Categories for user to select
+        {
+            List<ServiceCategory> categoryList = new();
+            var category = db.ServiceCategory.ToList();
+
+            if (category != null)                                     
+            {
+                foreach (var c in category)
+                {
+                    var Category = new ServiceCategory()
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    };
+                    categoryList.Add(Category);
+                }
+                ViewBag.Categories = categoryList;
+            }
+            else { ViewBag.Categories = "No Categories"; }
+        }
+
+        public void DisplayAllEmployees()                     //Display all Employees for user to select
+        {
+            List<Employee> employeeList = new();
+            var employees = db.Employee.ToList();
+
+            if (employees != null) //Select Capable staff for Service
+            {
+                foreach (var e in employees)
+                {
+                    var Employee = new Employee()
+                    {
+                        Id = e.Id,
+                        FirstName = e.FirstName,
+                        LastName = e.LastName
+                    };
+                    employeeList.Add(Employee);
+                }
+                ViewBag.Employees = employeeList;
+            }
+            else { ViewBag.Employees = "No Employees"; }
         }
     }
 }

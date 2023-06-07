@@ -18,11 +18,14 @@ namespace Salon_System.Models
 
         [DisplayName("Charge"), Required(ErrorMessage = "This field is required")] public decimal? Charge { get; set; }
 
-        [DisplayName("Category")] public int? CategoryId { get; set; }
+        [DisplayName("Category"), Required(ErrorMessage = "This field is required")] public int? CategoryId { get; set; }
 
-        public string? CategoryName;
+        public string? CategoryName;                //Display name of Category associated to the service
 
-        public List<String>? EmployeeNames = new();
+        public List<String>? EmployeeNames = new(); //Display names of employees associated to the service
+
+        [Required(ErrorMessage = "This field is required")]
+        public List<int>? EmployeeIds = new();      //Get Ids of selected Employees to save in the database
 
         public ICollection<ServiceEmployee>? Employees { get; set; }
 
