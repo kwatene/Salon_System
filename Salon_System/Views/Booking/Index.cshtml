@@ -12,5 +12,90 @@
                 </div>
             </div>
         </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- /.card-header -->
+                <div class="card-body ml-5">
+                        <form action="Create" method="post" autocomplete="off">
+                        <div class="row">
+
+                            <div class="col-6">
+                                <h6>Date range</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="start_date">Start Date</label>
+                                            <input type="date" required name="start_date" class="form-control" id="start_date" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="end_date">End Date</label>
+                                            <input type="date" required name="end_date" class="form-control" id="end_date" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <h6>Time range (Day)</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="open_time">Open Time</label>
+                                            <input type="time" required name="open_time" class="form-control" id="open_time" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="close_time">Close Time</label>
+                                            <input type="time"  required name="close_time" class="form-control" id="close_time" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <h6>Working Days</h6>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="checkbox" name="monday" id="monday" value="1"checked>
+                                        <label for="monday">Monday</label>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <input type="checkbox" name="tuesday" id="tuesday" value="1" checked>
+                                        <label for="tuesday">Tuesday</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="checkbox" name="wednesday" id="wednesday" value="1" checked>
+                                        <label for="wednesday">Wednesday</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="checkbox" name="thursday" id="thursday" value="1" checked >
+                                        <label for="thursday">Thursday</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="checkbox" name="friday" id="friday" value="1" checked>
+                                        <label for="friday">Friday</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="checkbox" name="saturday" id="saturday" value="1" checked >
+                                        <label for="saturday">Saturday</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="checkbox" name="sunday" id="sunday" value="1"  checked >
+                                        <label for="sunday">Sunday</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary float-right"> <i class="fa fa-cloud" aria-hidden="true"></i>&nbsp;Save</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
 </div>

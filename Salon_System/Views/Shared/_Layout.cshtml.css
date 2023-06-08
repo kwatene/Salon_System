@@ -46,3 +46,28 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+html {
+    background: linear-gradient(to right bottom, #fbdb89, #f48982);
+    background-repeat: no-repeat;
+    width: 0%;
+    height: 50%;
+    background-attachment: fixed;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.4;
+    display: flex;
+}
