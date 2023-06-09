@@ -11623,7 +11623,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
 .layout-top-nav .wrapper .main-header .brand-image {
   margin-top: -.5rem;
   margin-right: .2rem;
-  height: 33px;
+  height: 100px;
 }
 
 .layout-top-nav .wrapper .main-sidebar {
@@ -14220,7 +14220,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
   .sidebar-mini.sidebar-collapse .sidebar .user-panel > .info,
   .sidebar-mini.sidebar-collapse .sidebar .nav-sidebar .nav-link p,
   .sidebar-mini.sidebar-collapse .brand-text {
-    margin-left: -10px;
+    margin-left: -20px;
     -webkit-animation-name: fadeOut;
     animation-name: fadeOut;
     -webkit-animation-duration: 0.3s;
