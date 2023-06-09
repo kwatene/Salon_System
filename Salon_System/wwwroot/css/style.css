@@ -10,35 +10,27 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+.business-logo-home {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 350px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
 /*Business logo*/
 .business-logo-main {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     overflow: hidden;
     border-radius: 50px;
-}
-
-.busines-logo-text {
-    margin-left: -10px;
-    -webkit-animation-name: fadeOut;
-    animation-name: fadeOut;
-    -webkit-animation-duration: 0.3s;
-    animation-duration: 0.3s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    visibility: hidden;
-}
-
-
-
-.logo {
-    vertical-align: middle;
-    width: 100px;
-    height: 60px;
-    border-radius: 50%;
 }
 
 .avatar {
@@ -49,7 +41,7 @@
 }
 
     /*Profile Picture*/
-    .profile-pic {
+.profile-pic {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,8 +50,26 @@
     width: auto;
 }
 
-.menu-button {
-    vertical-align: middle;
-    width: 60px;
-    height: 60px;
+.bg-img {
+    /* The image used */
+    background-image: url("/img/photo2.png");
+    min-height: 810px;
+    overflow: auto;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+/* Add styles to the form container */
+.login {
+    position: absolute;
+    left: 40%;
+    right: 30%;
+    margin: 20px;
+    max-width: 300px;
+    padding: 1.0rem;
+    background-color: white;
 }
