@@ -1,0 +1,78 @@
+Add Database to System (Localdb)
+
+In the SQL Server Object Explorer window
+Right click on local db
+Create a database called "FeatherTouchDb"
+Right click on Feathertouch DB
+Select new Query
+Copy and paste the code below and run the query.
+
+
+CREATE TABLE [dbo].[Client] (
+    [Id]          INT          IDENTITY (1, 1) NOT NULL,
+    [FirstName]   VARCHAR (20) NOT NULL,
+    [LastName]    VARCHAR (20) NOT NULL,
+    [Gender]      VARCHAR (7)  NULL,
+    [DateOfBirth] DATE         NOT NULL,
+    [Email]       VARCHAR (40) NOT NULL,
+    [Phone]       VARCHAR (15) NOT NULL,
+    [Address]     VARCHAR (50) NULL,
+    [Suburb]      VARCHAR (30) NULL,
+    [City]        VARCHAR (30) NULL,
+    [Country]     VARCHAR (30) NULL,
+    [PostCode]    VARCHAR (6)  NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[Employee] (
+    [Id]          INT          IDENTITY (1, 1) NOT NULL,
+    [FirstName]   VARCHAR (20) NOT NULL,
+    [LastName]    VARCHAR (20) NOT NULL,
+    [Gender]      VARCHAR (7)  NULL,
+    [DateOfBirth] DATE         NOT NULL,
+    [Email]       VARCHAR (40) NOT NULL,
+    [Phone]       VARCHAR (15) NOT NULL,
+    [Address]     VARCHAR (50) NULL,
+    [Suburb]      VARCHAR (30) NULL,
+    [City]        VARCHAR (30) NULL,
+    [Country]     VARCHAR (30) NULL,
+    [PostCode]    VARCHAR (6)  NULL,
+    [JobTitle]    VARCHAR (20) NOT NULL,
+    [JobDesc]     VARCHAR (40) NULL,
+    [HireDate]    DATE         NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[Service] (
+    [Id]            INT           IDENTITY (1, 1) NOT NULL,
+    [Name]          VARCHAR (40)  NOT NULL,
+    [Description]   VARCHAR (MAX) NULL,
+    [DurationHours] INT           NULL,
+    [DurationMins]  INT           NULL,
+    [Charge]        DECIMAL (18)  NOT NULL,
+    [CategoryId]    INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_ServiceCategory] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[ServiceCategory] ([Id])
+);
+
+CREATE TABLE [dbo].[ServiceCategory] (
+    [Id]                INT           IDENTITY (1, 1) NOT NULL,
+    [Name]              VARCHAR (20)  NOT NULL,
+    [Description]       VARCHAR (MAX) NULL,
+    [StartTime]         INT           NULL,
+    [EndTime]           INT           NULL,
+    [FollowUp]          VARCHAR (4)   NULL,
+    [FollowUpStartTime] INT           NULL,
+    [FollowUpEndTime]   INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[ServiceEmployee] (
+    [ServiceId]  INT NOT NULL,
+    [EmployeeId] INT NOT NULL,
+    CONSTRAINT [FK_ServiceEmployee_Employee] FOREIGN KEY ([EmployeeId]) REFERENCES [dbo].[Employee] ([Id]),
+    CONSTRAINT [FK_ServiceEmployee_Service] FOREIGN KEY ([ServiceId]) REFERENCES [dbo].[Service] ([Id])
+);
+
+//Resets the auto_increment
+DBCC CHECKIDENT ('Service',RESEED,0);
